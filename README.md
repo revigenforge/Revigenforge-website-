@@ -19,11 +19,9 @@ npm run preview    # serve dist/ on :4173
 read from it and never hardcode text, so the whole site can be rewritten without
 touching a component.
 
-Two things to confirm before launch, both marked with `⚠` in that file:
-
-1. **`contact.email`** — currently the account email on file. Swap it for a
-   branded address once DNS is ready.
-2. **`contact.social`** — placeholder handles. Point them at the real profiles.
+Contact details are confirmed: `revigenforge@gmail.com`, Instagram only. Both
+live in `contact`, and the footer renders whatever is in `contact.social`, so
+adding a channel later needs no component change.
 
 **There is no invented proof on this site.** No client, metric, testimonial or
 price appears anywhere, because none was supplied. Sections that would have

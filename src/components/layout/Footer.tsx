@@ -14,7 +14,7 @@ export function Footer() {
             <p className="body-copy mt-8 max-w-[34ch] opacity-55">{footer.statement}</p>
           </Reveal>
 
-          <Reveal className="lg:col-span-3 lg:col-start-8" delay={80}>
+          <Reveal className="lg:col-span-3 lg:col-start-7" delay={80}>
             <p className="label mb-6 opacity-35">Studio</p>
             <ul className="flex flex-col gap-1">
               {footer.columns[0].links.map((link) => (
@@ -27,7 +27,7 @@ export function Footer() {
             </ul>
           </Reveal>
 
-          <Reveal className="lg:col-span-3" delay={140}>
+          <Reveal className="lg:col-span-3 lg:col-start-10" delay={140}>
             <p className="label mb-6 opacity-35">Elsewhere</p>
             <ul className="flex flex-col gap-1">
               {contact.social.map((link) => (

@@ -4,11 +4,9 @@
    Every word on the page comes from this file. Components read it; they
    never hardcode copy. To change the site, change this file.
 
-   READ THIS BEFORE LAUNCH — two things to confirm/replace:
-
-   1. `contact.email` is currently the account email on file. Swap it for a
-      branded address (e.g. hello@revigenforge.com) when DNS is ready.
-   2. `contact.social` links point at placeholder handles. Update them.
+   Contact details are confirmed: revigenforge@gmail.com and Instagram only.
+   If a branded address or another channel comes later, both live in
+   `contact` below and nothing else needs touching.
 
    Nothing on this site is invented proof. There are no case studies,
    testimonials, metrics or prices anywhere, because none were supplied —
@@ -30,14 +28,11 @@ export const brand = {
 } as const;
 
 export const contact = {
-  // ⚠ Replace with a branded address before launch.
   email: 'revigenforge@gmail.com',
   emailSubject: 'Project enquiry — Revigen Forge',
-  social: [
-    { label: 'Instagram', href: 'https://instagram.com/revigenforge' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/company/revigenforge' },
-    { label: 'YouTube', href: 'https://youtube.com/@revigenforge' },
-  ],
+  // Instagram only — confirmed. The footer renders whatever is in this
+  // array, so adding a channel later needs no component change.
+  social: [{ label: 'Instagram', href: 'https://instagram.com/revigenforge' }],
 } as const;
 
 export const nav = {
