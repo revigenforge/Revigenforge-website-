@@ -106,7 +106,25 @@ body of `onSubmit` in `src/components/sections/CallToAction.tsx` with a `fetch`.
 
 ## Deploying
 
-`vite.config.ts` uses a relative `base`, so `dist/` works on a custom domain, a
-GitHub Pages project subpath, or any static host without reconfiguration.
-`.github/workflows/deploy.yml` publishes `dist/` to GitHub Pages on push to the
-default branch — enable Pages with "GitHub Actions" as the source to use it.
+Live at **https://revigenforge.github.io/Revigenforge-website-/**
+
+`.github/workflows/deploy.yml` lints, builds and publishes `dist/` to GitHub
+Pages on every push to the default branch, and can be run manually from the
+Actions tab. `configure-pages` runs with `enablement: true`, so Pages is turned
+on by the workflow itself rather than by a repository setting.
+
+`vite.config.ts` uses a relative `base`, so the build works on a project
+subpath, a custom domain, or any static host without reconfiguration.
+
+### Connecting a custom domain
+
+Two things need updating, and neither can be done at runtime because social
+scrapers do not execute JavaScript:
+
+1. The three absolute URLs in `index.html` — `canonical`, `og:url` and the two
+   image tags — all marked with `⚠`.
+2. Add a `public/CNAME` file containing the domain, and point the DNS records
+   at GitHub Pages.
+
+`public/og.png` is the social card, generated at 1200×630 in the brand
+typeface. It is a PNG on purpose: most scrapers refuse to render SVG cards.

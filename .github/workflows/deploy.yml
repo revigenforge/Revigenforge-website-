@@ -2,7 +2,11 @@ name: Deploy site
 
 on:
   push:
-    branches: [main]
+    # This repository's default branch is the feature branch below; `main`
+    # is listed too so the workflow keeps working if the default changes.
+    branches:
+      - main
+      - claude/revigen-forge-landing-5uaqyv
   workflow_dispatch:
 
 permissions:
@@ -29,7 +33,12 @@ jobs:
       - run: npm run lint
       - run: npm run build
 
+      # enablement turns Pages on via the API if it is not already
+      # configured, so no manual repository setting is required.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
