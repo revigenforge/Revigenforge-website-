@@ -40,7 +40,7 @@ export function Services() {
                     >
                       <span
                         className={`label tnum mt-1.5 shrink-0 transition-colors duration-500 sm:mt-0 ${
-                          isOpen ? 'text-ember opacity-100' : 'opacity-35'
+                          isOpen ? 'opacity-100' : 'opacity-35'
                         }`}
                       >
                         {service.n}
@@ -48,9 +48,7 @@ export function Services() {
 
                       <span className="flex-1">
                         <span
-                          className={`display-md block transition-[transform,color] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 ${
-                            isOpen ? '' : 'group-hover:text-ember'
-                          }`}
+                          className="display-md block transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
                         >
                           {service.title}
                         </span>
@@ -67,12 +65,7 @@ export function Services() {
                         className="row-arrow mt-2 shrink-0 sm:mt-0"
                       >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path
-                            d="M8 1v14M1 8h14"
-                            stroke="currentColor"
-                            strokeWidth="1.2"
-                            className={isOpen ? 'text-ember' : ''}
-                          />
+                          <path d="M8 1v14M1 8h14" stroke="currentColor" strokeWidth="1.2" />
                         </svg>
                       </span>
                     </button>
@@ -97,7 +90,7 @@ export function Services() {
                             {service.includes.map((item) => (
                               <li
                                 key={item}
-                                className="border px-3 py-1.5 font-mono text-[0.64rem] uppercase tracking-[0.12em] opacity-70 [border-color:var(--rule)]"
+                                className="border px-3 py-1.5 font-display text-[0.64rem] uppercase tracking-[0.12em] opacity-70 [border-color:var(--rule)]"
                               >
                                 {item}
                               </li>

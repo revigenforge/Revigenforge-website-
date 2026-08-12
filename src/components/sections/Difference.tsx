@@ -7,7 +7,7 @@ export function Difference() {
       {/* A single low bloom keeps this block from going flat */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-1/3 -z-10 h-[70vmin] w-[70vmin] rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--color-ember)_16%,transparent),transparent_68%)] blur-3xl"
+        className="pointer-events-none absolute -left-40 top-1/3 -z-10 h-[70vmin] w-[70vmin] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.07),transparent_68%)] blur-3xl"
       />
 
       <div className="shell grid gap-16 lg:grid-cols-12 lg:gap-10">
@@ -19,7 +19,7 @@ export function Difference() {
               <span className="label opacity-45">{difference.label}</span>
             </Reveal>
 
-            <h2 className="display-lg mt-10 max-w-[12ch]">
+            <h2 className="display-lg mt-10 max-w-[16ch]">
               <MaskLines lines={difference.headline} step={80} />
             </h2>
           </div>
@@ -34,7 +34,7 @@ export function Difference() {
               className="group border-b py-10 first:border-t [border-color:var(--rule)] md:py-12"
             >
               <div className="flex items-baseline gap-6">
-                <span className="label tnum shrink-0 opacity-30 transition-colors duration-500 group-hover:text-ember group-hover:opacity-100">
+                <span className="label tnum shrink-0 opacity-30 transition-opacity duration-500 group-hover:opacity-100">
                   {item.n}
                 </span>
                 <div>

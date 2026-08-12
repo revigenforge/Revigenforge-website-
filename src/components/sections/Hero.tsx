@@ -1,7 +1,7 @@
 import { hero, marquee } from '../../content/site';
 import { Button } from '../ui/Button';
 import { MaskLines, Reveal } from '../ui/Reveal';
-import { EmberField } from '../visuals/EmberField';
+import { MoteField } from '../visuals/MoteField';
 import { ForgeOrb } from '../visuals/ForgeOrb';
 
 export function Hero() {
@@ -18,22 +18,22 @@ export function Hero() {
           <ForgeOrb className="h-full w-full" />
         </div>
 
-        <EmberField className="absolute inset-0 h-full w-full" />
+        <MoteField className="absolute inset-0 h-full w-full" />
 
         {/* Vignette keeps the display type legible over the orb */}
         <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_10%_50%,var(--color-ink)_28%,transparent_72%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black to-transparent" />
       </div>
 
       {/* Content ---------------------------------------------------- */}
       <div className="shell relative flex min-h-[100svh] flex-col justify-between pb-10 pt-32 sm:pt-36 lg:min-h-[100svh] lg:pb-12">
         <div className="flex flex-1 flex-col justify-center py-14 lg:py-0">
           <Reveal className="mb-10 flex items-center gap-3" y={10}>
-            <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-ember" />
+            <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-current" />
             <span className="label opacity-70">{hero.eyebrow}</span>
           </Reveal>
 
-          <h1 className="display-xl max-w-[15ch]">
+          <h1 className="display-xl dim-line max-w-[15ch]">
             <MaskLines
               immediate
               start={140}
@@ -51,7 +51,7 @@ export function Hero() {
 
           <div className="mt-10 grid gap-10 lg:mt-14 lg:grid-cols-12">
             <Reveal className="lg:col-span-6 xl:col-span-5" delay={520}>
-              <p className="lede max-w-[52ch] text-bone/70">{hero.lede}</p>
+              <p className="lede max-w-[52ch] text-white/65">{hero.lede}</p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
@@ -70,7 +70,7 @@ export function Hero() {
                     className="flex items-baseline justify-between gap-6 border-b py-3.5 [border-color:var(--rule)]"
                   >
                     <span className="label tnum opacity-40">{item.k}</span>
-                    <span className="font-mono text-[0.72rem] uppercase tracking-[0.16em] opacity-80">
+                    <span className="font-display text-[0.72rem] uppercase tracking-[0.16em] opacity-80">
                       {item.v}
                     </span>
                   </li>
@@ -96,10 +96,10 @@ export function Hero() {
               {marquee.map((item) => (
                 <span
                   key={item}
-                  className="flex shrink-0 items-center gap-6 pr-6 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-bone/55"
+                  className="flex shrink-0 items-center gap-6 pr-6 font-display text-[0.7rem] uppercase tracking-[0.18em] text-white/55"
                 >
                   {item}
-                  <span className="h-1 w-1 rotate-45 bg-ember/70" />
+                  <span className="h-1 w-1 rotate-45 bg-current opacity-45" />
                 </span>
               ))}
             </div>

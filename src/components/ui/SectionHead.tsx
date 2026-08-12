@@ -24,12 +24,12 @@ export function SectionHead({ index, label, lines, lede, aside, className = '' }
       </Reveal>
 
       <div className="mt-10 grid gap-x-16 gap-y-8 lg:grid-cols-12 lg:items-end">
-        <h2 className="display-lg lg:col-span-7 lg:max-w-[16ch]">
+        <h2 className="display-lg lg:col-span-8 lg:max-w-[22ch]">
           <MaskLines lines={lines} step={80} />
         </h2>
 
         {(lede || aside) && (
-          <div className="lg:col-span-5 lg:pb-2">
+          <div className="lg:col-span-4 lg:pb-2">
             {lede && (
               <Reveal delay={120}>
                 <p className="lede max-w-[46ch] opacity-65">{lede}</p>

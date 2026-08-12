@@ -13,7 +13,7 @@ const viewports = [
   { name: 'mobile', width: 390, height: 844 },
 ];
 
-const sections = ['top', 'reality', 'approach', 'services', 'why', 'process', 'proof', 'engagements', 'contact'];
+const sections = ['top', 'reality', 'approach', 'services', 'why', 'process', 'engagements', 'contact'];
 
 const browser = await chromium.launch(
   process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {},
@@ -38,9 +38,12 @@ for (const vp of viewports) {
 
   // Reveal everything, then capture each section
   for (const id of sections.slice(1)) {
-    await page.evaluate((sid) => {
-      document.getElementById(sid)?.scrollIntoView({ block: 'start', behavior: 'instant' });
+    const found = await page.evaluate((sid) => {
+      const el = document.getElementById(sid);
+      el?.scrollIntoView({ block: 'start', behavior: 'instant' });
+      return Boolean(el);
     }, id);
+    if (!found) errors.push(`[${vp.name}] missing section anchor #${id}`);
     await page.waitForTimeout(950);
     await page.screenshot({ path: `${OUT}/${vp.name}-${String(sections.indexOf(id)).padStart(2, '0')}-${id}.png` });
   }

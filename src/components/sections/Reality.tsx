@@ -21,7 +21,7 @@ export function Reality() {
               delay={i * 90}
               className="group relative border-b py-9 pr-6 [border-color:var(--rule)] md:py-12 md:odd:pr-14 md:even:pl-14 md:even:border-l"
             >
-              <span className="label tnum block opacity-30 transition-colors duration-500 group-hover:text-ember group-hover:opacity-100">
+              <span className="label tnum block opacity-30 transition-opacity duration-500 group-hover:opacity-100">
                 {item.n}
               </span>
 
@@ -34,7 +34,7 @@ export function Reality() {
 
         {/* The turn — the line that reframes everything above it */}
         <Reveal className="mt-16 flex justify-end sm:mt-20" delay={120}>
-          <p className="display-md max-w-[24ch] text-balance sm:text-right">
+          <p className="display-md dim-line max-w-[24ch] text-balance sm:text-right">
             None of that is a content problem.
             <br className="hidden sm:block" />{' '}
             <span className="accent">It is an architecture problem.</span>

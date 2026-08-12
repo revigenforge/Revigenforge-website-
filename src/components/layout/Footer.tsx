@@ -1,6 +1,6 @@
-import { brand, contact, footer } from '../../content/site';
+import { contact, footer } from '../../content/site';
 import { Reveal } from '../ui/Reveal';
-import { ForgeMark } from '../visuals/ForgeMark';
+import { WordmarkStacked } from '../visuals/ForgeMark';
 
 export function Footer() {
   return (
@@ -8,16 +8,10 @@ export function Footer() {
       <div className="shell py-16 md:py-20">
         <div className="grid gap-14 lg:grid-cols-12">
           <Reveal className="lg:col-span-6">
-            <div className="flex items-center gap-3">
-              <ForgeMark size={30} />
-              <span className="text-[0.82rem] font-medium uppercase tracking-[0.16em]">
-                {brand.name}
-              </span>
-            </div>
+            {/* The logo presented as it is drawn: stacked, two lines. */}
+            <WordmarkStacked />
 
-            <p className="display-md mt-8 max-w-[18ch] text-balance opacity-90">
-              {footer.statement}
-            </p>
+            <p className="body-copy mt-8 max-w-[34ch] opacity-55">{footer.statement}</p>
           </Reveal>
 
           <Reveal className="lg:col-span-3 lg:col-start-8" delay={80}>

@@ -1,28 +1,30 @@
 @import 'tailwindcss';
 
+@import '@fontsource/poppins/300.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
 @import '@fontsource-variable/inter-tight/index.css';
-@import '@fontsource/instrument-serif/400.css';
-@import '@fontsource/instrument-serif/400-italic.css';
-@import '@fontsource-variable/jetbrains-mono/index.css';
 
 /* ------------------------------------------------------------------
    Revigen Forge — design tokens
-   A deliberately narrow system: warm ink, bone, one molten accent.
+
+   Themed directly off the logo: pure black, pure white, geometric sans.
+   No accent colour anywhere. Hierarchy is built from value, weight and
+   space alone, which is what keeps a monochrome system feeling designed
+   rather than unfinished.
    ------------------------------------------------------------------ */
 @theme {
-  --color-ink: #0b0a09;
-  --color-ink-2: #121010;
-  --color-ink-3: #1c1917;
-  --color-bone: #f4efe7;
-  --color-bone-2: #e9e2d7;
-  --color-ash: #8b837a;
-  --color-ember: #ff4a1c;
-  --color-ember-soft: #ff7a4d;
-  --color-ember-deep: #a32d09;
+  --color-ink: #000000;
+  --color-ink-2: #0a0a0a;
+  --color-ink-3: #141414;
+  --color-bone: #ffffff;
+  --color-bone-2: #f2f2f2;
+  --color-ash: #8f8f8f;
 
+  /* Matches the logo wordmark. */
+  --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Inter Tight Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, monospace;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
@@ -32,8 +34,8 @@
   :root {
     --gutter: clamp(1.25rem, 5vw, 4.5rem);
     --section-y: clamp(5.5rem, 12vw, 10.5rem);
-    --rule: color-mix(in oklab, var(--color-bone) 12%, transparent);
-    --rule-ink: color-mix(in oklab, var(--color-ink) 14%, transparent);
+    --rule: rgb(255 255 255 / 0.16);
+    --rule-ink: rgb(0 0 0 / 0.14);
     color-scheme: dark;
   }
 
@@ -65,12 +67,12 @@
   }
 
   ::selection {
-    background: var(--color-ember);
-    color: #fff;
+    background: var(--color-bone);
+    color: var(--color-ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-ember);
+    outline: 2px solid currentColor;
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -114,36 +116,37 @@
 }
 
 /* ------------------------------------------------------------------
-   Typography
+   Typography — geometric sans throughout, tightened at display sizes
    ------------------------------------------------------------------ */
-/* Sized so the four-line hero statement, the lede and both CTAs all clear
-   the fold on a 1440×900 laptop — the most common desktop we design for. */
+
+/* Sized so the hero statement, the lede and both CTAs clear the fold on a
+   1440×900 laptop. */
 @utility display-xl {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.85rem, 7vw, 6.4rem);
-  line-height: 0.92;
-  letter-spacing: -0.025em;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 6.1vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
 
 @utility display-lg {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.5rem, 6.4vw, 5.25rem);
-  line-height: 0.94;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  font-size: clamp(2.1rem, 5vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.032em;
 }
 
 @utility display-md {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
-  line-height: 1.04;
-  letter-spacing: -0.015em;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  line-height: 1.16;
+  letter-spacing: -0.025em;
 }
 
 @utility label {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: clamp(0.625rem, 0.78vw, 0.7rem);
   font-weight: 500;
   letter-spacing: 0.2em;
@@ -162,10 +165,22 @@
   letter-spacing: -0.006em;
 }
 
-/* Italic serif accent inside display headings */
+/* Emphasis without colour: the surrounding line steps back, the accent
+   word stays at full white. */
+@utility dim-line {
+  color: rgb(255 255 255 / 0.55);
+}
+
+.surface-light .dim-line {
+  color: rgb(0 0 0 / 0.5);
+}
+
 @utility accent {
-  font-style: italic;
-  color: var(--color-ember);
+  color: var(--color-bone);
+}
+
+.surface-light .accent {
+  color: var(--color-ink);
 }
 
 /* ------------------------------------------------------------------
@@ -176,21 +191,12 @@
   color: var(--color-ink);
 }
 
-@utility rule-t {
-  border-top: 1px solid var(--rule);
-}
-
-@utility rule-b {
-  border-bottom: 1px solid var(--rule);
-}
-
 .surface-light {
   --rule: var(--rule-ink);
 }
 
 /* ------------------------------------------------------------------
    Motion — reveals
-   Driven by IntersectionObserver adding [data-revealed]
    ------------------------------------------------------------------ */
 [data-reveal] {
   opacity: 0;
@@ -207,12 +213,11 @@
   will-change: auto;
 }
 
-/* Line-mask reveal for display type */
 .line-mask {
   display: block;
   overflow: hidden;
-  padding-block: 0.06em;
-  margin-block: -0.06em;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
 }
 
 /* A masked line handles its own motion — neutralise the generic reveal. */
@@ -248,7 +253,7 @@
   }
 
   .marquee-track,
-  .ember-orb,
+  .drift,
   .pulse-dot {
     animation: none !important;
   }
@@ -268,7 +273,6 @@
   display: flex;
   flex: 0 0 auto;
   min-width: 100%;
-  gap: 0;
   animation: marquee var(--marquee-duration, 46s) linear infinite;
 }
 
@@ -283,17 +287,17 @@
 }
 
 /* ------------------------------------------------------------------
-   Grain + atmosphere
+   Grain — the one texture in an otherwise flat black-and-white system
    ------------------------------------------------------------------ */
 .grain {
   position: fixed;
   inset: -50%;
   z-index: 70;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.32;
   background-image: var(--grain-url);
   background-size: 180px 180px;
-  mix-blend-mode: soft-light;
+  mix-blend-mode: overlay;
   animation: grain-shift 6s steps(4) infinite;
 }
 
@@ -321,18 +325,19 @@
   }
 }
 
-.ember-orb {
-  animation: orb-breathe 14s var(--ease-in-out-quart) infinite;
+.drift {
+  animation: drift 18s var(--ease-in-out-quart) infinite;
+  transform-origin: center;
 }
 
-@keyframes orb-breathe {
+@keyframes drift {
   0%,
   100% {
-    transform: scale(1) translate3d(0, 0, 0);
-    opacity: 0.85;
+    transform: scale(1) rotate(0deg);
+    opacity: 0.9;
   }
   50% {
-    transform: scale(1.09) translate3d(0, -1.5%, 0);
+    transform: scale(1.035) rotate(6deg);
     opacity: 1;
   }
 }
@@ -345,10 +350,10 @@
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-ember) 55%, transparent);
+    box-shadow: 0 0 0 0 rgb(255 255 255 / 0.45);
   }
   60% {
-    opacity: 0.85;
+    opacity: 0.7;
     box-shadow: 0 0 0 6px transparent;
   }
 }
@@ -388,6 +393,7 @@
   transform-origin: left;
 }
 
+/* Buttons invert on hover — the only "colour" move the system has. */
 .btn-fill {
   position: relative;
   overflow: hidden;
@@ -399,7 +405,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--color-ember);
+  background: var(--btn-fill, var(--color-bone));
   transform: translate3d(0, 101%, 0);
   transition: transform 0.55s var(--ease-out-expo);
 }
@@ -411,9 +417,7 @@
 
 /* Service rows */
 .row-hover {
-  transition:
-    background-color 0.5s var(--ease-out-expo),
-    color 0.4s var(--ease-out-expo);
+  transition: background-color 0.5s var(--ease-out-expo);
 }
 
 .row-arrow {
@@ -438,7 +442,6 @@
   overflow: hidden;
 }
 
-/* Numerals */
 .tnum {
   font-variant-numeric: tabular-nums;
 }

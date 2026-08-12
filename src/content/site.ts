@@ -4,15 +4,17 @@
    Every word on the page comes from this file. Components read it; they
    never hardcode copy. To change the site, change this file.
 
-   READ THIS BEFORE LAUNCH — three things to confirm/replace:
+   READ THIS BEFORE LAUNCH — two things to confirm/replace:
 
    1. `contact.email` is currently the account email on file. Swap it for a
       branded address (e.g. hello@revigenforge.com) when DNS is ready.
    2. `contact.social` links point at placeholder handles. Update them.
-   3. `caseStudies` and `testimonials` are intentionally EMPTY. Nothing has
-      been invented. The Proof section renders those blocks only when the
-      arrays have entries, so the live page never shows a fake number or a
-      fake quote. Add one real entry and the block appears, fully styled.
+
+   Nothing on this site is invented proof. There are no case studies,
+   testimonials, metrics or prices anywhere, because none were supplied —
+   sections that would have needed them were left out rather than filled
+   with placeholders. When real proof exists, add a Proof section here and
+   a matching component; do not soften that rule.
 
    `services` and `engagements` are written to match the studio's stated
    positioning (positioning / content / conversion). Confirm the wording
@@ -269,55 +271,8 @@ export const process = {
   ],
 } as const;
 
-export const proof = {
-  index: '06',
-  label: 'Proof',
-  headline: ['Proof, not', 'promises.'],
-  lede: 'We would rather show you how we hold ourselves accountable than quote a number you have no way to verify.',
-  commitments: [
-    {
-      n: '01',
-      title: 'Baselines before we start',
-      body: 'Every engagement opens with a recorded baseline — reach, enquiries, conversion. If we cannot measure the before, we will not claim the after.',
-    },
-    {
-      n: '02',
-      title: 'We report on pipeline',
-      body: 'Impressions are context, not results. Reporting is built around enquiries, calls booked and revenue attributable to the work.',
-    },
-    {
-      n: '03',
-      title: 'You own everything',
-      body: 'Accounts, files, frameworks and data stay in your name from day one. Leaving is always easy, which is why clients tend not to.',
-    },
-  ],
-
-  /* ⚠ EMPTY BY DESIGN — nothing fabricated.
-     Add a real entry and the "Selected work" grid renders automatically. */
-  caseStudies: [] as ReadonlyArray<{
-    client: string;
-    sector: string;
-    headline: string;
-    body: string;
-    metrics?: ReadonlyArray<{ value: string; label: string }>;
-  }>,
-
-  /* ⚠ EMPTY BY DESIGN — add real, attributable quotes only. */
-  testimonials: [] as ReadonlyArray<{
-    quote: string;
-    name: string;
-    role: string;
-  }>,
-
-  emptyState: {
-    title: 'Selected work',
-    body: 'Case studies are published here as engagements complete and clients approve the detail. Ask on a call and we will walk you through current work directly.',
-    cta: 'Request a walkthrough',
-  },
-} as const;
-
 export const engagements = {
-  index: '07',
+  index: '06',
   label: 'Engagements',
   headline: ['Three ways', 'to start.'],
   lede: 'Scope is set after the diagnostic, so you are never quoted before anyone understands the problem.',
@@ -369,7 +324,7 @@ export const engagements = {
 } as const;
 
 export const cta = {
-  index: '08',
+  index: '07',
   label: 'Start here',
   headline: ['You are going to be', 'posting anyway.'],
   accentLine: 'Make it compound.',

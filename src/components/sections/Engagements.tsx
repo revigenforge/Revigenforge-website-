@@ -22,18 +22,18 @@ export function Engagements() {
                 tier.featured ? 'lg:pb-9' : ''
               }`}
             >
-              {/* The featured tier is marked with an ember rule, not a badge
+              {/* The featured tier is marked with a solid rule, not a badge
                   shouting "most popular" at the reader. */}
               {tier.featured && (
                 <span
                   aria-hidden="true"
-                  className="absolute -top-px left-0 h-px w-full bg-ember lg:left-9 lg:w-[calc(100%-4.5rem)]"
+                  className="absolute -top-px left-0 h-px w-full bg-current lg:left-9 lg:w-[calc(100%-4.5rem)]"
                 />
               )}
 
               <div className="flex items-baseline justify-between gap-4">
                 <span className="label opacity-45">{tier.shape}</span>
-                {tier.featured && <span className="label text-ember">Most common</span>}
+                {tier.featured && <span className="label">Most common</span>}
               </div>
 
               <h3 className="display-md mt-8">{tier.name}</h3>
@@ -51,7 +51,7 @@ export function Engagements() {
                   <li key={item} className="flex gap-3 text-[0.95rem] leading-relaxed opacity-75">
                     <span
                       aria-hidden="true"
-                      className="mt-2 h-1 w-1 shrink-0 rotate-45 bg-ember"
+                      className="mt-2 h-1 w-1 shrink-0 rotate-45 bg-current"
                     />
                     {item}
                   </li>
@@ -62,7 +62,7 @@ export function Engagements() {
                 <span className="label opacity-40">Priced on scope</span>
                 <a
                   href="#contact"
-                  className="link-sweep -my-1 py-3 font-mono text-[0.7rem] uppercase tracking-[0.18em] transition-colors duration-300 group-hover:text-ember"
+                  className="link-sweep -my-1 py-3 font-display text-[0.7rem] uppercase tracking-[0.18em] transition-opacity duration-300"
                 >
                   Enquire
                 </a>

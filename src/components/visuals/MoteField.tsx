@@ -11,11 +11,11 @@ type Spark = {
 };
 
 /**
- * Sparse rising sparks behind the hero. Deliberately restrained: a low
+ * Sparse rising motes behind the hero — white on black, no colour. A low
  * particle count, capped DPR, paused when the hero scrolls away or the tab
  * is hidden, and switched off entirely for reduced-motion users.
  */
-export function EmberField({ className = '' }: { className?: string }) {
+export function MoteField({ className = '' }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -84,11 +84,11 @@ export function EmberField({ className = '' }: { className?: string }) {
 
         const t = spark.life / spark.maxLife;
         // Fade in fast, out slow.
-        const alpha = Math.min(t * 6, 1) * (1 - t) * 0.85;
+        const alpha = Math.min(t * 6, 1) * (1 - t) * 0.55;
 
         ctx.beginPath();
         ctx.arc(spark.x, spark.y, spark.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 122, 77, ${alpha.toFixed(3)})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
         ctx.fill();
       }
     };

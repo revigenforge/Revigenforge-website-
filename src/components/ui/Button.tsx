@@ -11,15 +11,19 @@ type ButtonProps = {
 };
 
 const base =
-  'group inline-flex items-center justify-center gap-3 whitespace-nowrap px-7 py-4 text-[0.8rem] font-medium uppercase tracking-[0.16em] font-mono transition-colors duration-500';
+  'group inline-flex items-center justify-center gap-3 whitespace-nowrap px-7 py-4 text-[0.78rem] font-medium uppercase tracking-[0.16em] font-display transition-colors duration-500';
 
+/**
+ * In a black-and-white system the only "colour" move available is
+ * inversion, so that is what every button does on hover.
+ */
 const variants: Record<Variant, string> = {
-  // Ember block that inverts to bone on hover.
-  primary: 'btn-fill bg-ember text-white hover:text-ink [&::before]:bg-bone',
-  // Hairline outline on dark, fills with ember on hover.
-  ghost: 'btn-fill border border-bone/25 text-bone hover:border-ember hover:text-white',
-  // For use on bone surfaces.
-  light: 'btn-fill border border-ink/20 text-ink hover:border-ink hover:text-bone [&::before]:bg-ink',
+  // Solid white block that inverts to black.
+  primary: 'btn-fill bg-white text-black hover:text-white [--btn-fill:#000]',
+  // Hairline outline on black that fills solid white.
+  ghost: 'btn-fill border border-white/30 text-white hover:border-white hover:text-black [--btn-fill:#fff]',
+  // For use on white surfaces.
+  light: 'btn-fill border border-black/25 text-black hover:border-black hover:text-white [--btn-fill:#000]',
 };
 
 export function Button({ href, children, variant = 'primary', className = '', onClick }: ButtonProps) {
@@ -57,7 +61,7 @@ export function TextLink({
   className?: string;
 }) {
   return (
-    <a href={href} className={`link-sweep font-mono text-[0.72rem] uppercase tracking-[0.2em] ${className}`}>
+    <a href={href} className={`link-sweep font-display text-[0.72rem] uppercase tracking-[0.2em] ${className}`}>
       {children}
     </a>
   );

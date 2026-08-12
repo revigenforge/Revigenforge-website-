@@ -80,7 +80,7 @@ export function Nav() {
               <a
                 key={link.href}
                 href={link.href}
-                className="link-sweep font-mono text-[0.68rem] uppercase tracking-[0.18em] opacity-70 transition-opacity duration-300 hover:opacity-100"
+                className="link-sweep font-display text-[0.68rem] uppercase tracking-[0.18em] opacity-70 transition-opacity duration-300 hover:opacity-100"
               >
                 {link.label}
               </a>
@@ -90,10 +90,10 @@ export function Nav() {
           <div className="flex items-center gap-4">
             <a
               href={nav.cta.href}
-              className={`btn-fill hidden whitespace-nowrap border px-5 py-3 font-mono text-[0.68rem] uppercase tracking-[0.18em] transition-colors duration-500 sm:inline-flex ${
+              className={`btn-fill hidden whitespace-nowrap border px-5 py-3 font-display text-[0.68rem] uppercase tracking-[0.18em] transition-colors duration-500 sm:inline-flex ${
                 onLight
-                  ? 'border-ink/25 hover:border-ember hover:text-white'
-                  : 'border-bone/25 hover:border-ember hover:text-white'
+                  ? 'border-black/25 hover:border-black hover:text-white [--btn-fill:#000]'
+                  : 'border-white/30 hover:border-white hover:text-black [--btn-fill:#fff]'
               }`}
             >
               {nav.cta.label}
@@ -138,7 +138,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="display-md border-t py-6 transition-[color,padding] duration-500 [border-color:var(--rule)] hover:pl-3 hover:text-ember"
+                className="display-md border-t py-6 transition-[opacity,padding] duration-500 [border-color:var(--rule)] hover:pl-3 hover:opacity-60"
                 style={{
                   transitionDelay: open ? `${80 + i * 45}ms` : '0ms',
                   transform: open ? 'translateY(0)' : 'translateY(14px)',
@@ -157,7 +157,7 @@ export function Nav() {
           <a
             href={nav.cta.href}
             onClick={() => setOpen(false)}
-            className="inline-flex items-center justify-center bg-ember px-7 py-5 font-mono text-[0.78rem] uppercase tracking-[0.16em] text-white"
+            className="inline-flex items-center justify-center bg-white px-7 py-5 font-display text-[0.78rem] uppercase tracking-[0.16em] text-black"
           >
             {nav.cta.label}
           </a>

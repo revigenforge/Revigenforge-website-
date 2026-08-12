@@ -26,7 +26,7 @@ export function Approach() {
                 <span className="label tnum opacity-35">{pillar.n}</span>
                 <span
                   aria-hidden="true"
-                  className="h-1.5 w-1.5 rotate-45 bg-ember opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  className="h-1.5 w-1.5 rotate-45 bg-current opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 />
               </div>
 
@@ -36,7 +36,7 @@ export function Approach() {
 
               {/* min-height keeps the three hairlines on one baseline even
                   though the bodies above them differ in length. */}
-              <p className="mt-8 border-t pt-4 font-mono text-[0.66rem] uppercase leading-relaxed tracking-[0.14em] opacity-40 [border-color:var(--rule)] md:mt-auto md:min-h-[5.25rem]">
+              <p className="mt-8 border-t pt-4 font-display text-[0.66rem] uppercase leading-relaxed tracking-[0.14em] opacity-40 [border-color:var(--rule)] md:mt-auto md:min-h-[5.25rem]">
                 {pillar.detail}
               </p>
             </Reveal>

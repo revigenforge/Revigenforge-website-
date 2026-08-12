@@ -50,7 +50,7 @@ export function CallToAction() {
       {/* Heat rising from the base of the page */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-45%] -z-10 h-[110vmin] bg-[radial-gradient(ellipse_at_center,color-mix(in_oklab,var(--color-ember)_22%,transparent),transparent_62%)] blur-2xl"
+        className="pointer-events-none absolute inset-x-0 bottom-[-45%] -z-10 h-[110vmin] bg-[radial-gradient(ellipse_at_center,rgb(255_255_255/0.09),transparent_62%)] blur-2xl"
       />
 
       <div className="shell grid gap-16 lg:grid-cols-12 lg:gap-12">
@@ -60,7 +60,7 @@ export function CallToAction() {
             <span className="label opacity-45">{cta.label}</span>
           </Reveal>
 
-          <h2 className="display-lg mt-10 max-w-[14ch]">
+          <h2 className="display-lg dim-line mt-10 max-w-[20ch]">
             <MaskLines
               lines={[
                 ...cta.headline,
@@ -79,8 +79,8 @@ export function CallToAction() {
           <Reveal delay={220}>
             <ul className="mt-10 flex flex-col gap-3">
               {cta.reassure.map((item) => (
-                <li key={item} className="flex items-center gap-3 font-mono text-[0.72rem] uppercase tracking-[0.14em] opacity-55">
-                  <span aria-hidden="true" className="h-1 w-1 rotate-45 bg-ember" />
+                <li key={item} className="flex items-center gap-3 font-display text-[0.72rem] uppercase tracking-[0.14em] opacity-55">
+                  <span aria-hidden="true" className="h-1 w-1 rotate-45 bg-current opacity-70" />
                   {item}
                 </li>
               ))}
@@ -114,7 +114,7 @@ export function CallToAction() {
 
             <button
               type="submit"
-              className="btn-fill group mt-2 inline-flex items-center justify-between gap-4 border border-bone/25 px-7 py-5 font-mono text-[0.78rem] uppercase tracking-[0.16em] transition-colors duration-500 hover:border-ember hover:text-white"
+              className="btn-fill group mt-2 inline-flex items-center justify-between gap-4 border border-white/30 px-7 py-5 font-display text-[0.78rem] uppercase tracking-[0.16em] transition-colors duration-500 hover:border-white hover:text-black [--btn-fill:#fff]"
             >
               {cta.form.submit}
               <svg width="15" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
@@ -149,13 +149,13 @@ type FieldProps = {
 /** Underlined field — no boxes, no glass. The rule lights on focus. */
 function Field({ id, label, value, onChange, textarea, required, placeholder }: FieldProps) {
   const shared =
-    'peer w-full border-b bg-transparent pb-3 pt-2 text-[1.05rem] tracking-[-0.01em] outline-none transition-colors duration-500 [border-color:var(--rule)] placeholder:text-bone/25 focus:border-ember';
+    'peer w-full border-b bg-transparent pb-3 pt-2 text-[1.05rem] tracking-[-0.01em] outline-none transition-colors duration-500 [border-color:var(--rule)] placeholder:text-bone/25 focus:border-white';
 
   return (
     <div className="group relative">
       <label htmlFor={id} className="label mb-3 block opacity-40 transition-opacity duration-300 group-focus-within:opacity-70">
         {label}
-        {required && <span className="ml-1 text-ember">*</span>}
+        {required && <span className="ml-1" aria-hidden="true">*</span>}
       </label>
 
       {textarea ? (
