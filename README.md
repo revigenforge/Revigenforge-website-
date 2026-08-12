@@ -106,12 +106,18 @@ body of `onSubmit` in `src/components/sections/CallToAction.tsx` with a `fetch`.
 
 ## Deploying
 
-Live at **https://revigenforge.github.io/Revigenforge-website-/**
+Target URL: **https://revigenforge.github.io/Revigenforge-website-/**
 
 `.github/workflows/deploy.yml` lints, builds and publishes `dist/` to GitHub
 Pages on every push to the default branch, and can be run manually from the
-Actions tab. `configure-pages` runs with `enablement: true`, so Pages is turned
-on by the workflow itself rather than by a repository setting.
+Actions tab.
+
+**One-time step required before the first deploy succeeds:** in the repository,
+go to **Settings → Pages** and set **Source** to **GitHub Actions**, then re-run
+the workflow from the Actions tab. This cannot be automated — the workflow's
+`GITHUB_TOKEN` is not allowed to create a Pages site, so `configure-pages` fails
+with "Resource not accessible by integration" until Pages is switched on by
+hand. Every deploy after that is automatic.
 
 `vite.config.ts` uses a relative `base`, so the build works on a project
 subpath, a custom domain, or any static host without reconfiguration.
