@@ -22,7 +22,7 @@ const ok = (cond, msg) => { if (!cond) fails.push(msg); };
   await page.screenshot({ path: `${OUT}/mobile-drawer.png` });
   const drawer = page.locator('[data-drawer]');
   ok((await drawer.getAttribute('data-open')) === 'true', 'drawer did not open');
-  const drawerLink = drawer.getByRole('link', { name: /Services/i });
+  const drawerLink = drawer.getByRole('link', { name: /What we do/i });
   ok(await drawerLink.isVisible(), 'drawer link not visible');
   await drawerLink.click();
   await page.waitForTimeout(900);
@@ -32,7 +32,7 @@ const ok = (cond, msg) => { if (!cond) fails.push(msg); };
   ok(await page.evaluate(() => document.body.style.overflow === ''), 'body scroll lock not released');
 
   // Accordion: second row opens, first closes
-  const rows = page.locator('#services article button');
+  const rows = page.locator('#services article > h3 > button');
   ok((await rows.count()) === 5, `expected 5 service rows, got ${await rows.count()}`);
   ok((await rows.nth(0).getAttribute('aria-expanded')) === 'true', 'first row not open by default');
   await rows.nth(2).click();
@@ -98,6 +98,83 @@ const ok = (cond, msg) => { if (!cond) fails.push(msg); };
   );
   ok(hidden === 0, `${hidden} elements still hidden under prefers-reduced-motion`);
   await rmCtx.close();
+}
+
+
+/* ---- diagrams: the site's main argument, so assert they actually work ---- */
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+  const page = await ctx.newPage();
+  page.on('pageerror', (e) => fails.push(`[diagrams] PAGEERROR ${e.message}`));
+  await page.goto(TARGET, { waitUntil: 'networkidle' });
+
+  // Forge: opening a branch reveals its children and rewrites the readout.
+  await page.locator('#forge').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(700);
+  const branch = page.locator('#forge button[data-branch]');
+  ok((await branch.count()) === 5, `expected 5 forge branches, got ${await branch.count()}`);
+
+  await branch.nth(2).click();
+  await page.waitForTimeout(700);
+  ok((await branch.nth(2).getAttribute('aria-expanded')) === 'true', 'forge branch did not open');
+  ok((await branch.nth(0).getAttribute('aria-expanded')) === 'false', 'previous forge branch stayed open');
+
+  const visibleChildren = await page.locator('#forge .map-node:not([data-hidden="true"])').count();
+  ok(visibleChildren > 5, `expected branch children to be revealed, saw ${visibleChildren} nodes`);
+
+  const before = await page.locator('#forge h3').first().textContent();
+  const child = page.locator('#forge .map-node[data-hidden="false"]').last();
+  await child.click();
+  await page.waitForTimeout(500);
+  const after = await page.locator('#forge h3').first().textContent();
+  ok(before !== after, 'selecting a forge node did not change the readout');
+
+  // Hidden children must not be reachable by keyboard.
+  const focusableHidden = await page.locator('#forge .map-node[data-hidden="true"][tabindex="0"]').count();
+  ok(focusableHidden === 0, `${focusableHidden} hidden nodes are still tab-focusable`);
+
+  // Approach: selecting a stage rewrites the readout.
+  await page.locator('#approach').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(600);
+  const stages = page.locator('#approach .stage');
+  ok((await stages.count()) === 6, `expected 6 approach stages, got ${await stages.count()}`);
+  const aBefore = await page.locator('#approach-readout').textContent();
+  await stages.nth(4).click();
+  await page.waitForTimeout(600);
+  const aAfter = await page.locator('#approach-readout').textContent();
+  ok(aBefore !== aAfter, 'approach readout did not change on stage select');
+
+  // System: selecting a stage lights exactly the in and out edges.
+  await page.locator('#system').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(600);
+  const loopNodes = page.locator('#system .map-node');
+  ok((await loopNodes.count()) === 6, `expected 6 loop stages, got ${await loopNodes.count()}`);
+  await loopNodes.nth(3).click();
+  await page.waitForTimeout(500);
+  const liveEdges = await page.locator('#system path[data-live="true"]').count();
+  ok(liveEdges === 2, `expected 2 live loop edges, got ${liveEdges}`);
+
+  await ctx.close();
+}
+
+/* ---- diagrams must become usable trees below the radial breakpoint ---- */
+{
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await ctx.newPage();
+  await page.goto(TARGET, { waitUntil: 'networkidle' });
+  await page.locator('#forge').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(600);
+
+  // No absolutely-positioned radial nodes on mobile — it must be a list.
+  ok((await page.locator('#forge .map-node').count()) === 0, 'radial nodes rendered on mobile');
+
+  const mBranch = page.locator('#forge button[data-branch]');
+  ok((await mBranch.count()) === 5, 'mobile forge tree missing branches');
+  await mBranch.nth(1).click();
+  await page.waitForTimeout(700);
+  ok((await mBranch.nth(1).getAttribute('aria-expanded')) === 'true', 'mobile branch did not expand');
+
+  await ctx.close();
 }
 
 await browser.close();

@@ -11,7 +11,7 @@ type ButtonProps = {
 };
 
 const base =
-  'group inline-flex items-center justify-center gap-3 whitespace-nowrap px-7 py-4 text-[0.78rem] font-medium uppercase tracking-[0.16em] font-display transition-colors duration-500';
+  'group inline-flex shrink-0 items-center justify-center gap-3 whitespace-nowrap px-7 py-4 text-[0.78rem] font-medium uppercase tracking-[0.16em] font-display transition-colors duration-500';
 
 /**
  * In a black-and-white system the only "colour" move available is

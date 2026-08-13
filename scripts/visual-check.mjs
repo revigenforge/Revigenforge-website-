@@ -9,11 +9,12 @@ const TARGET = process.env.PREVIEW_URL ?? 'http://localhost:4173/';
 
 const viewports = [
   { name: 'desktop', width: 1440, height: 900 },
+  { name: 'laptop', width: 1024, height: 800 },
   { name: 'tablet', width: 834, height: 1112 },
   { name: 'mobile', width: 390, height: 844 },
 ];
 
-const sections = ['top', 'reality', 'approach', 'services', 'why', 'process', 'engagements', 'contact'];
+const sections = ['top', 'forge', 'services', 'approach', 'studio', 'system', 'contact'];
 
 const browser = await chromium.launch(
   process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {},

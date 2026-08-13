@@ -1,10 +1,12 @@
-# Revigen Forge — landing page
+# Revigen Forge
 
-Single-page site for Revigen Forge. React + TypeScript + Vite, Tailwind v4 for
-layout, self-hosted fonts, no runtime dependencies beyond React.
+Interactive studio site for Revigen Forge. React + TypeScript + Vite, Tailwind v4
+for layout, self-hosted fonts, no runtime dependencies beyond React.
 
-Themed directly off the logo: pure black, pure white, geometric sans, no accent
-colour anywhere. Hierarchy comes from value, weight and space alone.
+Live at **https://revigenforge.github.io/Revigenforge-website-/**
+
+Themed off the logo: pure black, pure white, geometric sans, plus a single blue
+accent reserved for live state. Hierarchy comes from value, weight and space.
 
 ```bash
 npm install
@@ -29,34 +31,68 @@ needed them were left out rather than filled with placeholders — there is
 deliberately no Proof or case-study section. When real proof exists, add it to
 `site.ts` with a matching component; don't soften that rule.
 
-`services` and `engagements` are written from the studio's positioning
-(positioning → content → conversion). Check the wording matches how you
-actually sell.
+`services`, the mind-map node copy and the stage descriptions are written from
+the studio's positioning (positioning → content → conversion). Check the wording
+matches how you actually think and sell — the diagrams are the argument, so
+generic node text undoes the whole point of them.
 
 ## Structure
 
 ```
 src/
-  content/site.ts          all copy, one file
-  styles/index.css         design tokens, type scale, motion
+  content/site.ts          all copy + diagram data, one file
+  styles/index.css         design tokens, type scale, motion, diagram language
   hooks/useReveal.ts       one shared IntersectionObserver for the page
+  hooks/useMediaQuery.ts   drives the desktop/mobile diagram switch
   components/
     layout/                Nav, Footer
     ui/                    Button, Reveal/MaskLines, SectionHead
     visuals/               ForgeMark (wordmark), ForgeOrb, MoteField, Grain
+    interactive/           HeroChain, RadialMap, StageFlow, SystemLoop
     sections/              one file per page section
 ```
 
-The page alternates black and white surfaces in five chapters — problem (black),
-answer and services (white), why and process (black), commercials (white),
-close (black). The nav inverts automatically over any element marked
-`data-surface="light"`.
+Seven sections: Hero, The Forge, What we do, Approach, The Studio, The System,
+Contact. Surfaces alternate black and white so a long scroll reads as chapters;
+the diagrams all sit on black, where the accent can actually glow. The nav
+inverts automatically over any element marked `data-surface="light"`.
+
+## The diagrams
+
+Four interaction models, deliberately different shapes, one shared vocabulary —
+a node is a bordered pill, an edge is a hairline, and **blue means live**. A
+visitor who learns the hero chain already knows how the rest behave.
+
+| Section | Shape | What the shape argues |
+| --- | --- | --- |
+| Hero | Vertical chain | The five links are a sequence |
+| The Forge | Radial, hierarchical | Five disciplines hanging off one centre |
+| Approach | Vertical spine that fills | The order is the point |
+| The System | Closed ring | Conversion feeds the next idea |
+
+Each is built on plain SVG plus absolutely-positioned HTML pills — no graph or
+animation library. Geometry is pure maths in a 0–100 square, so the diagrams
+scale with their container.
+
+**Below 1024px they are not shrunk, they are replaced.** The radial map becomes
+a vertical expandable tree and the ring unrolls into a list that visibly returns
+to the start. `useIsDesktop()` picks between them.
+
+Two geometry details worth keeping if you edit `RadialMap`: child nodes
+alternate between two radii (`R_CHILD_STEP`) so long neighbouring labels cannot
+collide, and every pill is anchored to grow *away* from the centre
+(`anchorFor`), which is what stops the left- and right-most labels causing
+horizontal overflow.
 
 ## Design notes
 
 - **Type**: Poppins for display, headings and labels — it matches the logo
   wordmark — with Inter Tight for body copy. Both self-hosted via `@fontsource`,
   so there are no external requests and no FOIT.
+- **One accent, never decorative.** `--color-accent` (#2E6BFF) marks *live*
+  state only: the node you selected, the path currently carrying attention, the
+  focused control. Everything at rest stays black and white. If you find
+  yourself using blue to make something look nicer, that is the rule breaking.
 - **The logo** is set as live text (`Wordmark` / `WordmarkStacked`), not an
   image, so it stays crisp at any size and flips colour with the surface.
 - **Emphasis without colour**: `dim-line` steps the surrounding words back to
@@ -77,7 +113,7 @@ With `npm run preview` running in another shell:
 
 ```bash
 npm run lint
-npm run check:visual        # screenshots at 1440 / 834 / 390 into .qa-shots/
+npm run check:visual        # 1440 / 1024 / 834 / 390 screenshots into .qa-shots/
 npm run check:interaction   # drawer, accordion, form, tap targets, reduced motion
 ```
 
@@ -89,6 +125,11 @@ tab stop, and nothing stays hidden under `prefers-reduced-motion`.
 
 `check:visual` also fails if a section anchor goes missing, which is what catches
 a nav link pointing at a section that no longer exists.
+
+The diagrams have their own assertions, because they can break silently: branch
+expansion is single-open, selecting a node rewrites the readout, hidden child
+nodes are not tab-focusable, selecting a loop stage lights exactly two edges,
+and below 1024px no radial nodes render at all.
 
 Worth knowing when editing headlines: display lines are explicit, one per array
 entry, and each is masked for the reveal. If a line wraps, the mask breaks — so
@@ -106,21 +147,14 @@ body of `onSubmit` in `src/components/sections/CallToAction.tsx` with a `fetch`.
 
 ## Deploying
 
-Target URL: **https://revigenforge.github.io/Revigenforge-website-/**
+The site is live on GitHub Pages. `.github/workflows/deploy.yml` lints, builds
+and publishes `dist/` on every push to the default branch, and can be run
+manually from the Actions tab. Pages is already enabled with "GitHub Actions" as
+the source; that was a one-time manual step, because the workflow's
+`GITHUB_TOKEN` is not permitted to create a Pages site.
 
-`.github/workflows/deploy.yml` lints, builds and publishes `dist/` to GitHub
-Pages on every push to the default branch, and can be run manually from the
-Actions tab.
-
-**One-time step required before the first deploy succeeds:** in the repository,
-go to **Settings → Pages** and set **Source** to **GitHub Actions**, then re-run
-the workflow from the Actions tab. This cannot be automated — the workflow's
-`GITHUB_TOKEN` is not allowed to create a Pages site, so `configure-pages` fails
-with "Resource not accessible by integration" until Pages is switched on by
-hand. Every deploy after that is automatic.
-
-`vite.config.ts` uses a relative `base`, so the build works on a project
-subpath, a custom domain, or any static host without reconfiguration.
+`vite.config.ts` uses a relative `base`, so `dist/` works on a custom domain, a
+project subpath, or any static host without reconfiguration.
 
 ### Connecting a custom domain
 
@@ -129,8 +163,8 @@ scrapers do not execute JavaScript:
 
 1. The three absolute URLs in `index.html` — `canonical`, `og:url` and the two
    image tags — all marked with `⚠`.
-2. Add a `public/CNAME` file containing the domain, and point the DNS records
-   at GitHub Pages.
+2. Add a `public/CNAME` file containing the domain, and point DNS at GitHub
+   Pages.
 
 `public/og.png` is the social card, generated at 1200×630 in the brand
 typeface. It is a PNG on purpose: most scrapers refuse to render SVG cards.

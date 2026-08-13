@@ -4,23 +4,23 @@ import { Footer } from './components/layout/Footer';
 import { Grain } from './components/visuals/Grain';
 
 import { Hero } from './components/sections/Hero';
-import { Reality } from './components/sections/Reality';
-import { Approach } from './components/sections/Approach';
+import { Forge } from './components/sections/Forge';
 import { Services } from './components/sections/Services';
-import { Difference } from './components/sections/Difference';
-import { Process } from './components/sections/Process';
-import { Engagements } from './components/sections/Engagements';
+import { ApproachFlow } from './components/sections/ApproachFlow';
+import { Studio } from './components/sections/Studio';
+import { SystemSection } from './components/sections/SystemSection';
 import { CallToAction } from './components/sections/CallToAction';
 
 /**
- * The page reads as five chapters, alternating ink and bone:
- *   dark  — the problem
- *   light — the answer and what we sell
- *   dark  — why us, and how it runs
- *   light — commercials
- *   dark  — the close
- * The value flip is the main piece of art direction; it stops a long
- * scroll from feeling like one endless dark template.
+ * Seven sections, four distinct interaction models, one vocabulary.
+ *
+ * The order is an argument: state the idea (Hero), let the visitor take
+ * the studio apart (Forge), show what that buys them (Services), walk the
+ * sequence (Approach), meet the people (Studio), see it close the loop
+ * (System), then act (Contact).
+ *
+ * Surfaces alternate black and white so a long scroll reads as chapters.
+ * The diagrams all live on black, where the accent can actually glow.
  */
 export default function App() {
   useRevealObserver();
@@ -39,20 +39,19 @@ export default function App() {
 
       <main id="main">
         <Hero />
-        <Reality />
+        <Forge />
 
         <div data-surface="light" className="surface-light">
-          <Approach />
           <Services />
         </div>
 
-        <Difference />
-        <Process />
+        <ApproachFlow />
 
         <div data-surface="light" className="surface-light">
-          <Engagements />
+          <Studio />
         </div>
 
+        <SystemSection />
         <CallToAction />
       </main>
 

@@ -22,6 +22,12 @@
   --color-bone-2: #f2f2f2;
   --color-ash: #8f8f8f;
 
+  /* The single accent. It is never decorative: blue means live — the node
+     you selected, the path currently carrying attention, the focused
+     control. Everything at rest stays black and white. */
+  --color-accent: #2e6bff;
+  --color-accent-soft: #8fb0ff;
+
   /* Matches the logo wordmark. */
   --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Inter Tight Variable', ui-sans-serif, system-ui, sans-serif;
@@ -444,4 +450,172 @@
 
 .tnum {
   font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------
+   Interactive diagrams — shared language for every map on the site
+
+   One vocabulary, four diagrams: a node is a bordered pill, an edge is a
+   hairline, and "live" is blue. Because the vocabulary is shared, a
+   visitor who learns the hero chain already knows how the mind maps work.
+   ------------------------------------------------------------------ */
+.node {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  background: rgb(0 0 0 / 0.72);
+  padding: 0.55rem 0.95rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.6rem, 0.72vw, 0.68rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 999px;
+  transition:
+    border-color 0.45s var(--ease-out-expo),
+    color 0.45s var(--ease-out-expo),
+    background-color 0.45s var(--ease-out-expo),
+    box-shadow 0.6s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo);
+}
+
+.surface-light .node {
+  border-color: rgb(0 0 0 / 0.2);
+  background: rgb(255 255 255 / 0.82);
+}
+
+.node:hover,
+.node:focus-visible {
+  border-color: rgb(255 255 255 / 0.6);
+  transform: translateY(-1px);
+}
+
+.surface-light .node:hover,
+.surface-light .node:focus-visible {
+  border-color: rgb(0 0 0 / 0.55);
+}
+
+/* Live: the node you have selected, or the stage currently carrying flow. */
+.node[data-live='true'] {
+  border-color: var(--color-accent);
+  color: #fff;
+  background: color-mix(in oklab, var(--color-accent) 22%, #000);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-accent) 45%, transparent),
+    0 0 28px -4px color-mix(in oklab, var(--color-accent) 70%, transparent);
+}
+
+.node[data-muted='true'] {
+  opacity: 0.34;
+}
+
+.node-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.5;
+  flex: none;
+  transition: all 0.45s var(--ease-out-expo);
+}
+
+.node[data-live='true'] .node-dot {
+  background: var(--color-accent-soft);
+  opacity: 1;
+  box-shadow: 0 0 10px var(--color-accent);
+}
+
+/* Edges ------------------------------------------------------------ */
+.edge {
+  stroke: rgb(255 255 255 / 0.18);
+  stroke-width: 1;
+  fill: none;
+  transition:
+    stroke 0.5s var(--ease-out-expo),
+    stroke-opacity 0.5s var(--ease-out-expo);
+}
+
+.surface-light .edge {
+  stroke: rgb(0 0 0 / 0.18);
+}
+
+.edge[data-live='true'] {
+  stroke: var(--color-accent);
+  stroke-opacity: 0.9;
+}
+
+.edge[data-muted='true'] {
+  stroke-opacity: 0.07;
+}
+
+/* A pulse that travels an edge, so the diagram reads as carrying
+   something rather than merely connecting things. */
+.edge-pulse {
+  stroke: var(--color-accent-soft);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: none;
+  filter: drop-shadow(0 0 4px var(--color-accent));
+}
+
+@keyframes dash-travel {
+  from {
+    stroke-dashoffset: var(--dash-len, 100);
+  }
+  to {
+    stroke-dashoffset: calc(var(--dash-len, 100) * -1);
+  }
+}
+
+.edge-pulse[data-animate='true'] {
+  animation: dash-travel var(--pulse-dur, 3s) linear infinite;
+}
+
+/* Radial map node placement ---------------------------------------- */
+.map-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 0.55s var(--ease-out-expo),
+    transform 0.6s var(--ease-out-expo);
+}
+
+.map-node[data-hidden='true'] {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.86);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node,
+  .map-node,
+  .edge {
+    transition: none;
+  }
+
+  .edge-pulse[data-animate='true'] {
+    animation: none;
+  }
+}
+
+/* Readout panel ---------------------------------------------------- */
+.readout {
+  transition:
+    opacity 0.4s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo);
+}
+
+.readout[data-swap='true'] {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Accent-aware focus ring for interactive diagram controls */
+.node:focus-visible,
+.stage:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }

@@ -18,18 +18,14 @@ export function Services() {
           lede={services.lede}
         />
 
-        <div className="mt-20 border-t [border-color:var(--rule)] sm:mt-24">
+        <div className="mt-16 border-t [border-color:var(--rule)] sm:mt-20">
           {services.items.map((service, i) => {
             const isOpen = open === service.n;
             const panelId = `${baseId}-panel-${service.n}`;
 
             return (
               <Reveal key={service.n} delay={i * 70} y={14}>
-                <article
-                  className={`row-hover border-b [border-color:var(--rule)] ${
-                    isOpen ? 'row-open' : ''
-                  }`}
-                >
+                <article className={`row-hover border-b [border-color:var(--rule)] ${isOpen ? 'row-open' : ''}`}>
                   <h3>
                     <button
                       type="button"
@@ -39,17 +35,18 @@ export function Services() {
                       className="group flex w-full items-start gap-5 py-7 text-left sm:items-center sm:gap-8 md:py-9"
                     >
                       <span
-                        className={`label tnum mt-1.5 shrink-0 transition-colors duration-500 sm:mt-0 ${
-                          isOpen ? 'opacity-100' : 'opacity-35'
-                        }`}
+                        className="label tnum mt-1.5 shrink-0 transition-all duration-500 sm:mt-0"
+                        style={
+                          isOpen
+                            ? { color: 'var(--color-accent)', opacity: 1 }
+                            : { opacity: 0.35 }
+                        }
                       >
                         {service.n}
                       </span>
 
                       <span className="flex-1">
-                        <span
-                          className="display-md block transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
-                        >
+                        <span className="display-md block transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
                           {service.title}
                         </span>
 
@@ -60,12 +57,13 @@ export function Services() {
                         </span>
                       </span>
 
-                      <span
-                        aria-hidden="true"
-                        className="row-arrow mt-2 shrink-0 sm:mt-0"
-                      >
+                      <span aria-hidden="true" className="row-arrow mt-2 shrink-0 sm:mt-0">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path d="M8 1v14M1 8h14" stroke="currentColor" strokeWidth="1.2" />
+                          <path
+                            d="M8 1v14M1 8h14"
+                            stroke={isOpen ? 'var(--color-accent)' : 'currentColor'}
+                            strokeWidth="1.2"
+                          />
                         </svg>
                       </span>
                     </button>
@@ -78,10 +76,12 @@ export function Services() {
                           {service.summary}
                         </p>
 
-                        <dl className="grid gap-7 lg:col-span-5 sm:grid-cols-1">
-                          <Detail term="Who it is for" desc={service.who} />
-                          <Detail term="The problem" desc={service.problem} />
-                          <Detail term="Why it matters" desc={service.matters} />
+                        {/* Problem → approach → output, in that order: it is
+                            the same sequence the studio argues for. */}
+                        <dl className="grid gap-7 lg:col-span-5">
+                          <Detail term={services.fields.problem} desc={service.problem} />
+                          <Detail term={services.fields.approach} desc={service.approach} accent />
+                          <Detail term={services.fields.output} desc={service.output} />
                         </dl>
 
                         <div className="lg:col-span-3">
@@ -90,7 +90,7 @@ export function Services() {
                             {service.includes.map((item) => (
                               <li
                                 key={item}
-                                className="border px-3 py-1.5 font-display text-[0.64rem] uppercase tracking-[0.12em] opacity-70 [border-color:var(--rule)]"
+                                className="border px-3 py-1.5 font-display text-[0.62rem] uppercase tracking-[0.12em] opacity-70 [border-color:var(--rule)]"
                               >
                                 {item}
                               </li>
@@ -110,10 +110,15 @@ export function Services() {
   );
 }
 
-function Detail({ term, desc }: { term: string; desc: string }) {
+function Detail({ term, desc, accent }: { term: string; desc: string; accent?: boolean }) {
   return (
     <div>
-      <dt className="label mb-2 opacity-35">{term}</dt>
+      <dt
+        className="label mb-2 opacity-35"
+        style={accent ? { color: 'var(--color-accent)', opacity: 1 } : undefined}
+      >
+        {term}
+      </dt>
       <dd className="body-copy max-w-[52ch] opacity-70">{desc}</dd>
     </div>
   );
