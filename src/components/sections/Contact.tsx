@@ -1,0 +1,51 @@
+import { cta, contact } from '../../content/site';
+import { Pill } from '../ui/Pill';
+import { Reveal } from '../ui/Reveal';
+
+/** Closing statement, a marquee of capabilities, one CTA. */
+export function Contact() {
+  return (
+    <section id="contact" className="surface-ink section-y overflow-hidden">
+      <div className="shell text-center">
+        <Reveal y={10}>
+          <span className="label opacity-45">{cta.label}</span>
+        </Reveal>
+
+        <Reveal delay={80} className="mt-6">
+          <h2 className="display-xl">{cta.headline}</h2>
+        </Reveal>
+
+        <Reveal delay={160} className="mt-8">
+          <p className="lede mx-auto max-w-[46ch] dim">{cta.line}</p>
+        </Reveal>
+
+        <Reveal delay={240} className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <Pill href={contact.cta.href}>{contact.cta.label}</Pill>
+          <a
+            href={`mailto:${contact.email}?subject=${encodeURIComponent(contact.emailSubject)}`}
+            className="text-[0.95rem] underline underline-offset-4 opacity-60 transition-opacity hover:opacity-100"
+          >
+            {contact.email}
+          </a>
+        </Reveal>
+      </div>
+
+      <div className="marquee mt-16 border-y py-4 [border-color:var(--rule)]">
+        {[0, 1].map((copy) => (
+          <div className="marquee-track" key={copy} aria-hidden={copy === 1}>
+            {cta.marquee.map((item) => (
+              <span key={item} className="display-md flex shrink-0 items-center gap-8 pr-8 opacity-25">
+                {item}
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 rounded-full"
+                  style={{ background: 'var(--color-blue)' }}
+                />
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}

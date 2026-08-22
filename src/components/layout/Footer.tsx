@@ -1,62 +1,74 @@
-import { contact, footer } from '../../content/site';
+import { contact, footer, nav } from '../../content/site';
 import { Reveal } from '../ui/Reveal';
-import { WordmarkStacked } from '../visuals/ForgeMark';
 
+/**
+ * Blue block with the email set enormous and the wordmark bleeding off the
+ * right edge — the reference's closing gesture. The overflow is the point,
+ * so the section clips rather than scrolls.
+ */
 export function Footer() {
   return (
-    <footer className="relative border-t [border-color:var(--rule)]">
-      <div className="shell py-16 md:py-20">
-        <div className="grid gap-14 lg:grid-cols-12">
-          <Reveal className="lg:col-span-6">
-            {/* The logo presented as it is drawn: stacked, two lines. */}
-            <WordmarkStacked />
+    <footer className="surface-blue overflow-hidden pt-[var(--section-y)]">
+      <div className="shell">
+        <Reveal y={10}>
+          <p className="label opacity-70">{footer.prompt}</p>
+        </Reveal>
 
-            <p className="body-copy mt-8 max-w-[34ch] opacity-55">{footer.statement}</p>
-          </Reveal>
+        <Reveal delay={80} className="mt-4">
+          <a
+            href={`mailto:${contact.email}?subject=${encodeURIComponent(contact.emailSubject)}`}
+            className="display-lg break-all transition-opacity duration-300 hover:opacity-70"
+          >
+            {contact.email}
+          </a>
+        </Reveal>
 
-          <Reveal className="lg:col-span-3 lg:col-start-7" delay={80}>
-            <p className="label mb-6 opacity-35">Studio</p>
-            <ul className="flex flex-col gap-1">
-              {footer.columns[0].links.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="link-sweep inline-block py-2 text-[0.95rem] opacity-70 transition-opacity hover:opacity-100">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-
-          <Reveal className="lg:col-span-3 lg:col-start-10" delay={140}>
-            <p className="label mb-6 opacity-35">Elsewhere</p>
-            <ul className="flex flex-col gap-1">
-              {contact.social.map((link) => (
+        <div className="mt-14 flex flex-wrap justify-between gap-10">
+          <Reveal delay={140}>
+            <ul className="flex flex-col gap-2">
+              {nav.links.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="link-sweep inline-block py-2 text-[0.95rem] opacity-70 transition-opacity hover:opacity-100"
+                    className="inline-block py-1 text-[0.9rem] opacity-75 transition-opacity hover:opacity-100"
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
-              <li className="mt-2">
-                <a href={`mailto:${contact.email}`} className="link-sweep inline-block py-2 text-[0.95rem] opacity-70 transition-opacity hover:opacity-100">
-                  {contact.email}
-                </a>
-              </li>
+            </ul>
+          </Reveal>
+
+          <Reveal delay={200} className="text-right">
+            <p className="label opacity-60">Elsewhere</p>
+            <ul className="mt-3 flex flex-col gap-2">
+              {contact.social.map((s) => (
+                <li key={s.href}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-block py-1 text-[0.9rem] opacity-75 transition-opacity hover:opacity-100"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </Reveal>
         </div>
+      </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t pt-7 [border-color:var(--rule)] sm:flex-row sm:items-center sm:justify-between">
-          <p className="label opacity-30">{footer.legal}</p>
-          <a href="#top" className="link-sweep label -my-2 inline-block py-2.5 opacity-40 transition-opacity hover:opacity-80">
-            Back to top
-          </a>
-        </div>
+      {/* Wordmark runs off the edge on purpose */}
+      <p className="display-xl mt-12 whitespace-nowrap px-[var(--gutter)] leading-[0.78] opacity-95" aria-hidden="true">
+        Revigen Forge
+      </p>
+
+      <div className="shell flex flex-wrap items-center justify-between gap-3 border-t py-5 [border-color:var(--rule)]">
+        <p className="label opacity-60">{footer.legal}</p>
+        <a href="#top" className="label opacity-60 transition-opacity hover:opacity-100">
+          Back to top
+        </a>
       </div>
     </footer>
   );

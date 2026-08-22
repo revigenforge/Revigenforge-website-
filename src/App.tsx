@@ -1,26 +1,24 @@
 import { useRevealObserver } from './hooks/useReveal';
 import { Nav } from './components/layout/Nav';
 import { Footer } from './components/layout/Footer';
-import { Grain } from './components/visuals/Grain';
 
 import { Hero } from './components/sections/Hero';
-import { Forge } from './components/sections/Forge';
+import { About } from './components/sections/About';
 import { Services } from './components/sections/Services';
-import { ApproachFlow } from './components/sections/ApproachFlow';
-import { Studio } from './components/sections/Studio';
-import { SystemSection } from './components/sections/SystemSection';
-import { CallToAction } from './components/sections/CallToAction';
+import { Work } from './components/sections/Work';
+import { Proof } from './components/sections/Proof';
+import { Process } from './components/sections/Process';
+import { Pricing } from './components/sections/Pricing';
+import { Faq } from './components/sections/Faq';
+import { Contact } from './components/sections/Contact';
 
 /**
- * Seven sections, four distinct interaction models, one vocabulary.
+ * Ink → blue → cream → ink → cream → ink → blue.
  *
- * The order is an argument: state the idea (Hero), let the visitor take
- * the studio apart (Forge), show what that buys them (Services), walk the
- * sequence (Approach), meet the people (Studio), see it close the loop
- * (System), then act (Contact).
- *
- * Surfaces alternate black and white so a long scroll reads as chapters.
- * The diagrams all live on black, where the accent can actually glow.
+ * The surface changes are the structure: each full-bleed colour shift
+ * signals a new argument, which is what lets the copy stay this short.
+ * Cream sections that belong together (services/work, pricing/faq) share
+ * one block rather than repeating the flip.
  */
 export default function App() {
   useRevealObserver();
@@ -29,30 +27,23 @@ export default function App() {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-5 focus:py-3 focus:font-display focus:text-[0.75rem] focus:uppercase focus:tracking-[0.16em] focus:text-black"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-cream focus:px-5 focus:py-3 focus:text-[0.8rem] focus:text-ink"
       >
         Skip to content
       </a>
 
-      <Grain />
       <Nav />
 
       <main id="main">
         <Hero />
-        <Forge />
-
-        <div data-surface="light" className="surface-light">
-          <Services />
-        </div>
-
-        <ApproachFlow />
-
-        <div data-surface="light" className="surface-light">
-          <Studio />
-        </div>
-
-        <SystemSection />
-        <CallToAction />
+        <About />
+        <Services />
+        <Work />
+        <Proof />
+        <Process />
+        <Pricing />
+        <Faq />
+        <Contact />
       </main>
 
       <Footer />

@@ -14,7 +14,7 @@ const viewports = [
   { name: 'mobile', width: 390, height: 844 },
 ];
 
-const sections = ['top', 'forge', 'services', 'approach', 'studio', 'system', 'contact'];
+const sections = ['top', 'about', 'services', 'work', 'proof', 'process', 'pricing', 'faq', 'contact'];
 
 const browser = await chromium.launch(
   process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {},
