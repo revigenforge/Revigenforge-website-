@@ -38,22 +38,27 @@ that the live page was not loaded.
 
 ## Skills
 
-Two skills are committed under `.claude/skills/`, so they travel with the clone
-and are available to anyone working on this site — not just whoever installed
-them on their own machine.
+Eight skills are committed under `.claude/skills/` (~4.7MB), so they travel with
+the clone and are available to anyone working on this site — not just whoever
+installed them on their own machine.
 
 - **`frontend-design`** — visual direction, typography, avoiding templated
   defaults. Most of what changes here is design work, so this earns its place.
-- **`ui-ux-pro-max`** — searchable local design data (styles, palettes, font
-  pairings, UX guidelines, stacks) plus the Python scripts that query it. ~3.6MB,
-  almost all CSV/JSON catalogs. Installed via `npm i -g ui-ux-pro-max-cli` then
-  `uipro init --ai claude --global`; the copy here is that output, vendored.
+  Source: `/mnt/skills/public/frontend-design`.
+- **`ui-ux-pro-max`** and six companions (`design`, `design-system`,
+  `ui-styling`, `brand`, `banner-design`, `slides`) — design intelligence with
+  searchable local catalogs: styles, palettes, font pairings, UX guidelines,
+  stacks. Mostly CSV/JSON/Markdown plus Python and a little JS.
 
-Vendored, not tracked upstream: to update, re-run the CLI and copy the refreshed
-`~/.claude/skills/ui-ux-pro-max/` over the committed one.
+The seven came from `npm i -g ui-ux-pro-max-cli` then
+`uipro init --ai claude --global`. **Vendored, not tracked upstream** — to
+update, re-run that and copy the refreshed `~/.claude/skills/<name>/` over the
+committed copies.
 
-Neither is used by the build. `npm run lint` and `npm run build` ignore
-`.claude/` entirely — verified after adding them.
+None of them affect the build. Vite only reads `src/` and `index.html`, and
+`.oxlintrc.json` ignores `.claude/**` — the vendored skills ship their own JS,
+which is not ours to lint or fix, and without that ignore a future oxlint could
+promote a warning in third-party code into a deploy failure.
 
 ## Environment gotcha
 
