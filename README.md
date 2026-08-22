@@ -36,6 +36,11 @@ the studio's positioning (positioning → content → conversion). Check the wor
 matches how you actually think and sell — the diagrams are the argument, so
 generic node text undoes the whole point of them.
 
+Conversion reasoning — why the page is ordered the way it is, and what it
+deliberately does not do yet — is in
+[`docs/conversion-playbook.md`](docs/conversion-playbook.md). Working rules for
+anyone (or any agent) editing this repo are in [`CLAUDE.md`](CLAUDE.md).
+
 ## Structure
 
 ```
