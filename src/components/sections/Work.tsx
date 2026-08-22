@@ -14,7 +14,7 @@ export function Work() {
     <section id="work" className="surface-cream pb-[var(--section-y)]">
       <div className="shell">
         <Reveal y={10}>
-          <span className="label opacity-45">{work.label}</span>
+          <span className="label dim">{work.label}</span>
         </Reveal>
 
         {/* Headline with the frame inset */}

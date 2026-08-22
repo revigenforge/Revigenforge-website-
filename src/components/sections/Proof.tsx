@@ -13,7 +13,7 @@ export function Proof() {
     <section id="proof" className="surface-ink section-y">
       <div className="shell">
         <Reveal y={10}>
-          <span className="label opacity-45">{proof.label}</span>
+          <span className="label dim">{proof.label}</span>
         </Reveal>
 
         <Reveal delay={80} className="mt-6">
@@ -25,15 +25,13 @@ export function Proof() {
             <ul className="mt-12 grid gap-8 border-y py-9 [border-color:var(--rule)] sm:grid-cols-3">
               {proof.metrics.map((m, i) => (
                 <Reveal as="li" key={m.label} delay={120 + i * 80}>
-                  <p className="display-md tnum" style={{ color: 'var(--color-blue)' }}>
-                    {m.value}
-                  </p>
-                  <p className="label mt-3 opacity-50">{m.label}</p>
+                  <p className="display-md tnum accent">{m.value}</p>
+                  <p className="label dim mt-3">{m.label}</p>
                 </Reveal>
               ))}
             </ul>
             <Reveal delay={300}>
-              <p className="label mt-4 opacity-30">{proof.metricsNote}</p>
+              <p className="label dim mt-4">{proof.metricsNote}</p>
             </Reveal>
           </>
         )}
@@ -47,7 +45,7 @@ export function Proof() {
                 </blockquote>
                 <figcaption className="mt-5 flex items-baseline gap-3 border-t pt-4 [border-color:var(--rule)]">
                   <span className="label">{t.client}</span>
-                  <span className="label opacity-35">{t.sector}</span>
+                  <span className="label dim">{t.sector}</span>
                 </figcaption>
               </figure>
             </Reveal>

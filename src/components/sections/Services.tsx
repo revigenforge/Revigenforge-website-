@@ -16,12 +16,12 @@ export function Services() {
     <section id="services" className="surface-cream section-y">
       <div className="shell">
         <Reveal y={10}>
-          <span className="label opacity-45">{services.label}</span>
+          <span className="label dim">{services.label}</span>
         </Reveal>
 
         <Reveal delay={80} className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
           <h2 className="display-lg">{services.headline}</h2>
-          <p className="body-copy mb-1 max-w-[26ch] opacity-50">{services.aside}</p>
+          <p className="body-copy dim mb-1 max-w-[26ch]">{services.aside}</p>
         </Reveal>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14">
@@ -40,9 +40,9 @@ export function Services() {
                         aria-controls={panelId}
                         className="group flex w-full items-center gap-5 py-5 text-left"
                       >
-                        <span className="label tnum shrink-0 opacity-35">{item.n}</span>
+                        <span className="label dim tnum shrink-0">{item.n}</span>
                         <span className="display-md flex-1">{item.title}</span>
-                        <span className="acc-icon shrink-0 opacity-50" aria-hidden="true">
+                        <span className="acc-icon dim shrink-0" aria-hidden="true">
                           <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
                             <path d="M8 1v14M1 8h14" stroke="currentColor" strokeWidth="1.4" />
                           </svg>
@@ -54,7 +54,7 @@ export function Services() {
                       <div>
                         <div className="pb-6 pl-[calc(2ch+1.25rem)]">
                           <p className="lede max-w-[34ch]">{item.line}</p>
-                          <p className="body-copy mt-3 max-w-[46ch] opacity-55">{item.body}</p>
+                          <p className="body-copy dim mt-3 max-w-[46ch]">{item.body}</p>
                         </div>
                       </div>
                     </div>

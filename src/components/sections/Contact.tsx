@@ -8,7 +8,7 @@ export function Contact() {
     <section id="contact" className="surface-ink section-y overflow-hidden">
       <div className="shell text-center">
         <Reveal y={10}>
-          <span className="label opacity-45">{cta.label}</span>
+          <span className="label dim">{cta.label}</span>
         </Reveal>
 
         <Reveal delay={80} className="mt-6">
@@ -23,7 +23,7 @@ export function Contact() {
           <Pill href={contact.cta.href}>{contact.cta.label}</Pill>
           <a
             href={`mailto:${contact.email}?subject=${encodeURIComponent(contact.emailSubject)}`}
-            className="inline-block py-2.5 text-[0.95rem] underline underline-offset-4 opacity-60 transition-opacity hover:opacity-100"
+            className="dim inline-block py-2.5 text-[0.95rem] underline underline-offset-4 transition-colors hover:[color:var(--fg)]"
           >
             {contact.email}
           </a>
@@ -34,12 +34,11 @@ export function Contact() {
         {[0, 1].map((copy) => (
           <div className="marquee-track" key={copy} aria-hidden={copy === 1}>
             {cta.marquee.map((item) => (
-              <span key={item} className="display-md flex shrink-0 items-center gap-8 pr-8 opacity-25">
+              <span key={item} className="display-md ghost flex shrink-0 items-center gap-8 pr-8">
                 {item}
                 <span
                   aria-hidden="true"
-                  className="h-1.5 w-1.5 rounded-full"
-                  style={{ background: 'var(--color-blue)' }}
+                  className="h-1.5 w-1.5 rounded-full [background:var(--accent)]"
                 />
               </span>
             ))}

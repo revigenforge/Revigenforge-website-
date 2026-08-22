@@ -9,7 +9,8 @@
     "preview": "vite preview --port 4173",
     "lint": "oxlint",
     "check:visual": "node scripts/visual-check.mjs",
-    "check:interaction": "node scripts/interaction-check.mjs"
+    "check:interaction": "node scripts/interaction-check.mjs",
+    "check:contrast": "node scripts/contrast-check.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter-tight": "^5.3.0",

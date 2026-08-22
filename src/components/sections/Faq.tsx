@@ -16,7 +16,7 @@ export function Faq() {
     <section id="faq" className="surface-cream pb-[var(--section-y)]">
       <div className="shell">
         <Reveal y={10}>
-          <span className="label opacity-45">{faq.label}</span>
+          <span className="label dim">{faq.label}</span>
         </Reveal>
 
         <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-14">
@@ -43,7 +43,7 @@ export function Faq() {
                           <span className="flex-1 text-[0.98rem] font-medium leading-snug">
                             {item.q}
                           </span>
-                          <span className="acc-icon shrink-0 opacity-45" aria-hidden="true">
+                          <span className="acc-icon dim shrink-0" aria-hidden="true">
                             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                               <path d="M8 1v14M1 8h14" stroke="currentColor" strokeWidth="1.4" />
                             </svg>
@@ -53,7 +53,7 @@ export function Faq() {
 
                       <div className="acc-panel" data-open={isOpen} id={panelId}>
                         <div>
-                          <p className="body-copy max-w-[52ch] pb-6 opacity-60">{item.a}</p>
+                          <p className="body-copy dim max-w-[52ch] pb-6">{item.a}</p>
                         </div>
                       </div>
                     </div>

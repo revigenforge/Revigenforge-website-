@@ -12,7 +12,7 @@ export function About() {
     <section id="about" className="surface-cream section-y">
       <div className="shell">
         <Reveal y={10}>
-          <span className="label opacity-45">{about.label}</span>
+          <span className="label dim">{about.label}</span>
         </Reveal>
 
         <Reveal delay={80} className="mt-8">
@@ -27,12 +27,14 @@ export function About() {
               as="li"
               key={card.n}
               delay={140 + i * 90}
-              className="flex flex-col justify-between rounded-2xl bg-ink p-6 text-cream sm:min-h-[13rem]"
+              /* surface-ink, not bg-ink — the card inverts, so it has to
+                 re-declare the tone scale for the `dim` children inside. */
+              className="surface-ink flex flex-col justify-between rounded-2xl p-6 sm:min-h-[13rem]"
             >
-              <span className="label tnum opacity-45">{card.n}</span>
+              <span className="label dim tnum">{card.n}</span>
               <div className="mt-10">
                 <h3 className="display-md">{card.title}</h3>
-                <p className="body-copy mt-2 opacity-60">{card.body}</p>
+                <p className="body-copy dim mt-2">{card.body}</p>
               </div>
             </Reveal>
           ))}

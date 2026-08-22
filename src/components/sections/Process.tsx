@@ -7,12 +7,12 @@ export function Process() {
     <section id="process" className="surface-ink pb-[var(--section-y)]">
       <div className="shell">
         <Reveal y={10}>
-          <span className="label opacity-45">{process.label}</span>
+          <span className="label dim">{process.label}</span>
         </Reveal>
 
         <Reveal delay={80} className="mt-6 flex flex-wrap items-end gap-x-5 gap-y-2">
           <h2 className="display-lg">{process.headline}</h2>
-          <p className="body-copy mb-1 opacity-45">{process.aside}</p>
+          <p className="body-copy dim mb-1">{process.aside}</p>
         </Reveal>
 
         <ol className="mt-12 grid gap-px sm:grid-cols-2 lg:grid-cols-4">
@@ -23,9 +23,9 @@ export function Process() {
               delay={i * 80}
               className="border-t pt-6 [border-color:var(--rule)] lg:pr-8"
             >
-              <span className="label tnum opacity-35">{s.n}</span>
+              <span className="label dim tnum">{s.n}</span>
               <h3 className="display-md mt-8">{s.title}</h3>
-              <p className="body-copy mt-2 opacity-55">{s.line}</p>
+              <p className="body-copy dim mt-2">{s.line}</p>
             </Reveal>
           ))}
         </ol>

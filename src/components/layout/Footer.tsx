@@ -11,7 +11,7 @@ export function Footer() {
     <footer className="surface-ink overflow-hidden pt-[var(--section-y)]">
       <div className="shell">
         <Reveal y={10}>
-          <p className="label opacity-70">{footer.prompt}</p>
+          <p className="label dim">{footer.prompt}</p>
         </Reveal>
 
         <Reveal delay={80} className="mt-4">
@@ -30,7 +30,7 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="inline-block py-2.5 text-[0.9rem] opacity-75 transition-opacity hover:opacity-100"
+                    className="dim inline-block py-2.5 text-[0.9rem] transition-colors hover:[color:var(--fg)]"
                   >
                     {link.label}
                   </a>
@@ -40,7 +40,7 @@ export function Footer() {
           </Reveal>
 
           <Reveal delay={200} className="text-right">
-            <p className="label opacity-60">Elsewhere</p>
+            <p className="label dim">Elsewhere</p>
             <ul className="mt-1 flex flex-col">
               {contact.social.map((s) => (
                 <li key={s.href}>
@@ -48,7 +48,7 @@ export function Footer() {
                     href={s.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-block py-2.5 text-[0.9rem] opacity-75 transition-opacity hover:opacity-100"
+                    className="dim inline-block py-2.5 text-[0.9rem] transition-colors hover:[color:var(--fg)]"
                   >
                     {s.label}
                   </a>
@@ -65,8 +65,8 @@ export function Footer() {
       </p>
 
       <div className="shell flex flex-wrap items-center justify-between gap-3 border-t py-5 [border-color:var(--rule)]">
-        <p className="label opacity-60">{footer.legal}</p>
-        <a href="#top" className="label -my-2.5 inline-block py-2.5 opacity-60 transition-opacity hover:opacity-100">
+        <p className="label dim">{footer.legal}</p>
+        <a href="#top" className="label dim -my-2.5 inline-block py-2.5 transition-colors hover:[color:var(--fg)]">
           Back to top
         </a>
       </div>

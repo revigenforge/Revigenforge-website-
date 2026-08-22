@@ -12,7 +12,7 @@ export function Pricing() {
     <section id="pricing" className="surface-cream section-y">
       <div className="shell">
         <Reveal y={10} className="text-center">
-          <span className="label opacity-45">{pricing.label}</span>
+          <span className="label dim">{pricing.label}</span>
           <h2 className="display-lg mt-5">{pricing.headline}</h2>
         </Reveal>
 
@@ -22,29 +22,27 @@ export function Pricing() {
               as="article"
               key={tier.name}
               delay={i * 100}
+              /* The surface utility, not bare bg/text classes — the card
+                 has to re-declare the tone scale or its children keep
+                 resolving `dim` against the section behind them. */
               className={`flex flex-col rounded-3xl p-7 sm:p-9 ${
-                tier.featured ? 'bg-ink text-cream' : 'bg-white text-ink'
+                tier.featured ? 'surface-ink' : 'surface-paper'
               }`}
             >
               <div className="flex items-baseline justify-between gap-4">
-                <span className="label opacity-45">{tier.shape}</span>
-                {tier.featured && (
-                  <span className="label" style={{ color: 'var(--color-blue)' }}>
-                    Most common
-                  </span>
-                )}
+                <span className="label dim">{tier.shape}</span>
+                {tier.featured && <span className="label accent">Most common</span>}
               </div>
 
               <h3 className="display-md mt-9">{tier.name}</h3>
-              <p className="body-copy mt-2 opacity-55">{tier.pitch}</p>
+              <p className="body-copy dim mt-2">{tier.pitch}</p>
 
               <ul className="mt-8 flex-1 space-y-3 border-t pt-7 [border-color:var(--rule)]">
                 {tier.includes.map((inc) => (
-                  <li key={inc} className="flex gap-3 text-[0.92rem] leading-snug opacity-75">
+                  <li key={inc} className="flex gap-3 text-[0.92rem] leading-snug">
                     <span
                       aria-hidden="true"
-                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full"
-                      style={{ background: 'var(--color-blue)' }}
+                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full [background:var(--accent)]"
                     />
                     {inc}
                   </li>
@@ -61,7 +59,7 @@ export function Pricing() {
         </div>
 
         <Reveal delay={340}>
-          <p className="body-copy mx-auto mt-10 max-w-[52ch] text-center opacity-45">{pricing.note}</p>
+          <p className="body-copy dim mx-auto mt-10 max-w-[52ch] text-center">{pricing.note}</p>
         </Reveal>
       </div>
     </section>

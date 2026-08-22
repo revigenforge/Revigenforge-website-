@@ -50,8 +50,8 @@ export function Hero() {
             delay={340}
             className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t pt-4 [border-color:var(--rule)]"
           >
-            <span className="label opacity-55">{hero.proofLine}</span>
-            <span className="label opacity-35">{hero.scrollHint}</span>
+            <span className="label dim">{hero.proofLine}</span>
+            <span className="label dim">{hero.scrollHint}</span>
           </Reveal>
         </div>
       </div>

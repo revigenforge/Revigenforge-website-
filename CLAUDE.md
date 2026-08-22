@@ -13,13 +13,29 @@ Read this before changing anything. It loads automatically each session.
    alternatives.
 2. **All copy lives in `src/content/site.ts`.** Components read from it and
    never hardcode text. Change the site by changing that file.
-3. **One accent colour, never decorative.** `--color-accent` (#2E6BFF) marks
-   *live* state only: selected node, active path, focused control. Everything at
-   rest is black and white. Using blue to make something look nicer breaks the
-   system.
-4. **Render before claiming it works.** This repo has two check scripts; run
-   both and actually look at the screenshots. Layout bugs here have consistently
-   been invisible in the diff and obvious on screen.
+3. **One accent colour, never decorative.** Cream leads, ink answers, blue
+   punctuates. Blue never owns a section — it appears in small load-bearing
+   places only (pill arrows, live numbers, markers). Using blue to make
+   something look nicer breaks the system.
+   Note the two blues: `--color-blue` (#2447d6) is only legible on cream or as
+   a fill under white — it is **2.78:1 on ink and must never carry text
+   there**. `--color-blue-lift` (#5a79f5) is the same hue raised until it
+   clears AA on black. Do not hardcode either; use `accent`, which resolves
+   per surface.
+4. **Never dim text with `opacity-*`. Use the tone scale.** Three tones, set by
+   the surface utility: `--fg` full, `dim` (`--fg-2`) safe at any size, `ghost`
+   (`--fg-3`) for display type ≥24px only. The percentages are solved against
+   WCAG, not chosen by eye — an earlier pass had 51 elements below AA because
+   every component picked its own opacity.
+   **A block that inverts must apply a surface utility, not bare `bg-*`/
+   `text-*`.** `bg-ink text-cream` leaves `--fg-2` resolving against the
+   section behind it, so `dim` children come out dark-on-dark. This has been
+   the cause of two real bugs (About cards, featured pricing card).
+5. **Render before claiming it works.** This repo has three check scripts; run
+   all of them and actually look at the screenshots. Layout bugs here have
+   consistently been invisible in the diff and obvious on screen. Contrast bugs
+   are worse — they are invisible in both, which is why `check:contrast`
+   rasterises and measures rather than trusting computed values.
 
 ## Verifying changes
 
@@ -28,8 +44,17 @@ npm run build                # tsc + vite
 npm run lint
 npm run preview              # :4173, needed by both checks
 npm run check:visual         # 1440 / 1024 / 834 / 390 → .qa-shots/
-npm run check:interaction    # diagrams, drawer, form, a11y, reduced motion
+npm run check:interaction    # accordions, drawer, tap targets, a11y, reduced motion
+npm run check:contrast       # WCAG AA on every visible text node
 ```
+
+`check:contrast` composites for real — it paints the background stack and the
+text colour onto a canvas and reads the pixel back. Do not "simplify" it to
+parse `getComputedStyle().color`: anything built with `color-mix()` computes to
+`oklab()`, whose channels are 0–1 in a perceptual space, and assigning to canvas
+`fillStyle` does **not** normalise it (Chromium hands the oklab string straight
+back). Parsing those numbers as sRGB produces confident nonsense — it reported
+`1.02:1` for text that was actually fine.
 
 In this sandbox Playwright needs `CHROMIUM_PATH` pointing at the local Chromium.
 Outbound access to `github.io` is blocked, so the deployed site cannot be

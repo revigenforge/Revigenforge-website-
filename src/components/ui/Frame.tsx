@@ -28,7 +28,7 @@ export function Frame({
       role="img"
       aria-label={alt}
     >
-      <span className="label opacity-40">{label ?? alt}</span>
+      <span className="label dim">{label ?? alt}</span>
     </div>
   );
 }
