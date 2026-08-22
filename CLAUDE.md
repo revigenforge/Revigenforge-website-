@@ -36,6 +36,13 @@ Outbound access to `github.io` is blocked, so the deployed site cannot be
 fetched from here — verify deploys via the Actions run status, and say plainly
 that the live page was not loaded.
 
+## Skills
+
+`.claude/skills/frontend-design/` is committed to the repo, so it travels with
+the clone and is available to anyone working on this site — not just whoever
+installed it on their own machine. It covers visual direction, typography and
+avoiding templated defaults, which is most of what changes here.
+
 ## Environment gotcha
 
 **The working tree has repeatedly reset to an older commit between turns.**
