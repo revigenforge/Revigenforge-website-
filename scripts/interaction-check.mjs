@@ -132,5 +132,31 @@ const ok = (cond, msg) => { if (!cond) fails.push(msg); };
   await ctx.close();
 }
 
+/* Nothing in the first screen may still be waiting on a scroll.
+   The reveal observer uses a negative bottom rootMargin, which strands any
+   element pinned to the bottom of the opening viewport — it sits at
+   opacity 0 until the reader scrolls past it, which for hero content means
+   never. The hero's proof line was invisible on load this way. */
+{
+  for (const [w, h] of [[1440, 900], [1024, 768], [390, 844]]) {
+    const ctx = await browser.newContext({ viewport: { width: w, height: h } });
+    const page = await ctx.newPage();
+    await page.goto(TARGET, { waitUntil: 'networkidle' });
+    await page.waitForTimeout(2000);
+
+    const stuck = await page.evaluate(() =>
+      [...document.querySelectorAll('[data-reveal]')]
+        .filter((el) => {
+          const r = el.getBoundingClientRect();
+          return r.top < window.innerHeight && r.bottom > 0 && getComputedStyle(el).opacity === '0';
+        })
+        .map((el) => (el.textContent || '').trim().slice(0, 40)),
+    );
+    ok(stuck.length === 0, `${w}x${h}: ${stuck.length} first-screen reveal(s) stuck hidden: ${JSON.stringify(stuck)}`);
+
+    await ctx.close();
+  }
+}
+
 await browser.close();
 console.log(fails.length ? 'FAILURES:\n- ' + fails.join('\n- ') : 'All interaction checks passed.');

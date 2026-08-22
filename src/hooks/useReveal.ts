@@ -16,6 +16,14 @@ export function useRevealObserver() {
       return;
     }
 
+    /* The -12% bottom margin holds a reveal back until the element is
+       meaningfully in view rather than clipping the edge. That is right for
+       everything the reader scrolls to and wrong for the first screen: an
+       element pinned to the bottom of the viewport on load — the hero's
+       proof strip — sits permanently outside the shrunk boundary and never
+       fires. It stayed at opacity 0 until the user scrolled past it, by
+       which point the hero had gone. So anything already on screen at load
+       is revealed directly, and the observer takes over from there. */
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -33,6 +41,14 @@ export function useRevealObserver() {
         .forEach((el) => observer.observe(el));
     };
 
+    const revealFirstScreen = () => {
+      for (const el of document.querySelectorAll('[data-reveal]:not([data-revealed])')) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) show(el);
+      }
+    };
+
+    revealFirstScreen();
     scan();
 
     // Catch nodes added later (accordion panels, conditional blocks).

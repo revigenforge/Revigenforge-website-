@@ -25,17 +25,14 @@ export function About() {
           {about.cards.map((card, i) => (
             <Reveal
               as="li"
-              key={card.n}
+              key={card.title}
               delay={140 + i * 90}
               /* surface-ink, not bg-ink — the card inverts, so it has to
                  re-declare the tone scale for the `dim` children inside. */
-              className="surface-ink flex flex-col justify-between rounded-2xl p-6 sm:min-h-[13rem]"
+              className="surface-ink flex flex-col justify-end rounded-2xl p-6 sm:min-h-[13rem]"
             >
-              <span className="label dim tnum">{card.n}</span>
-              <div className="mt-10">
-                <h3 className="display-md">{card.title}</h3>
-                <p className="body-copy dim mt-2">{card.body}</p>
-              </div>
+              <h3 className="display-md">{card.title}</h3>
+              <p className="body-copy dim mt-2">{card.body}</p>
             </Reveal>
           ))}
         </ul>
