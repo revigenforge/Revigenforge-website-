@@ -38,10 +38,22 @@ that the live page was not loaded.
 
 ## Skills
 
-`.claude/skills/frontend-design/` is committed to the repo, so it travels with
-the clone and is available to anyone working on this site — not just whoever
-installed it on their own machine. It covers visual direction, typography and
-avoiding templated defaults, which is most of what changes here.
+Two skills are committed under `.claude/skills/`, so they travel with the clone
+and are available to anyone working on this site — not just whoever installed
+them on their own machine.
+
+- **`frontend-design`** — visual direction, typography, avoiding templated
+  defaults. Most of what changes here is design work, so this earns its place.
+- **`ui-ux-pro-max`** — searchable local design data (styles, palettes, font
+  pairings, UX guidelines, stacks) plus the Python scripts that query it. ~3.6MB,
+  almost all CSV/JSON catalogs. Installed via `npm i -g ui-ux-pro-max-cli` then
+  `uipro init --ai claude --global`; the copy here is that output, vendored.
+
+Vendored, not tracked upstream: to update, re-run the CLI and copy the refreshed
+`~/.claude/skills/ui-ux-pro-max/` over the committed one.
+
+Neither is used by the build. `npm run lint` and `npm run build` ignore
+`.claude/` entirely — verified after adding them.
 
 ## Environment gotcha
 
