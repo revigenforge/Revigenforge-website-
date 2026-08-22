@@ -163,10 +163,14 @@ export const proof = {
     },
   ],
 
-  /* ⚠ AWAITING CONFIRMATION — real figures from the Overdrive account, but
-     the studio should confirm these are the Drop 001 reels before publish.
-     The story is reach far exceeding audience size; do not round up, and do
-     not add figures that were not measured. Set to [] to hide the block. */
+  /* Confirmed by the studio as the Drop 001 reels, measured on Instagram:
+     5,140 + 6,148 + 5,777 = 17,065 views against 314 followers.
+
+     The story is reach far exceeding audience size, which is the honest
+     way to present modest absolute numbers — and the right one for a
+     content studio, since it measures travel rather than vanity. Do not
+     round up and do not add figures that were not measured. Set to [] to
+     hide the block entirely. */
   metrics: [
     { value: '17,065', label: 'Views across Drop 001' },
     { value: '314', label: 'Followers at the time' },
