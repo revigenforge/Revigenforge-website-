@@ -22,7 +22,7 @@ const ok = (cond, msg) => { if (!cond) fails.push(msg); };
   await page.screenshot({ path: `${OUT}/mobile-drawer.png` });
   const drawer = page.locator('[data-drawer]');
   ok((await drawer.getAttribute('data-open')) === 'true', 'drawer did not open');
-  const drawerLink = drawer.getByRole('link', { name: /What we do/i });
+  const drawerLink = drawer.getByRole('link', { name: /Services/i });
   ok(await drawerLink.isVisible(), 'drawer link not visible');
   await drawerLink.click();
   await page.waitForTimeout(900);
@@ -32,7 +32,7 @@ const ok = (cond, msg) => { if (!cond) fails.push(msg); };
   ok(await page.evaluate(() => document.body.style.overflow === ''), 'body scroll lock not released');
 
   // Accordion: second row opens, first closes
-  const rows = page.locator('#services article > h3 > button');
+  const rows = page.locator('#services button[aria-expanded]');
   ok((await rows.count()) === 5, `expected 5 service rows, got ${await rows.count()}`);
   ok((await rows.nth(0).getAttribute('aria-expanded')) === 'true', 'first row not open by default');
   await rows.nth(2).click();
@@ -60,24 +60,17 @@ const ok = (cond, msg) => { if (!cond) fails.push(msg); };
   await page.goto(TARGET, { waitUntil: 'networkidle' });
 
   // Above-the-fold CTA visibility (the 5-second test)
-  const cta = page.getByRole('link', { name: /Book a strategy call/i }).first();
+  const cta = page.getByRole('link', { name: /Book a free call/i }).first();
   const box = await cta.boundingBox();
   ok(box && box.y + box.height <= 900, `primary CTA below the fold at 1440x900 (y=${box?.y})`);
 
-  // mailto composition — intercept the navigation
+  // Contact exposes a real mail link (the form was replaced by a booking CTA).
   await page.locator('#contact').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(600);
-  await page.fill('#rf-name', 'Sam Rivera');
-  await page.fill('#rf-company', '@studio');
-  await page.fill('#rf-links', 'instagram.com/studio');
-  await page.fill('#rf-message', 'Posting daily, no enquiries.');
-  await page.getByRole('button', { name: /Send enquiry/i }).click();
-  await page.waitForTimeout(400);
+  await page.waitForTimeout(500);
   const mailto = await page.evaluate(
-    () => document.querySelector('#contact form a[href^="mailto:"]')?.getAttribute('href'),
+    () => document.querySelector('#contact a[href^="mailto:"]')?.getAttribute('href'),
   );
-  ok(mailto?.startsWith('mailto:'), `mailto not composed: ${mailto}`);
-  ok(mailto?.includes('Sam%20Rivera'), 'form values missing from mailto body');
+  ok(mailto?.startsWith('mailto:'), `no mailto link in contact: ${mailto}`);
 
   // Keyboard focus ring reaches the skip link first
   await page.reload({ waitUntil: 'networkidle' });
@@ -101,78 +94,40 @@ const ok = (cond, msg) => { if (!cond) fails.push(msg); };
 }
 
 
-/* ---- diagrams: the site's main argument, so assert they actually work ---- */
+/* ---- accordions: the page's argument lives inside them ---- */
 {
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await ctx.newPage();
-  page.on('pageerror', (e) => fails.push(`[diagrams] PAGEERROR ${e.message}`));
+  page.on('pageerror', (e) => fails.push(`[accordions] PAGEERROR ${e.message}`));
   await page.goto(TARGET, { waitUntil: 'networkidle' });
 
-  // Forge: opening a branch reveals its children and rewrites the readout.
-  await page.locator('#forge').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(700);
-  const branch = page.locator('#forge button[data-branch]');
-  ok((await branch.count()) === 5, `expected 5 forge branches, got ${await branch.count()}`);
-
-  await branch.nth(2).click();
-  await page.waitForTimeout(700);
-  ok((await branch.nth(2).getAttribute('aria-expanded')) === 'true', 'forge branch did not open');
-  ok((await branch.nth(0).getAttribute('aria-expanded')) === 'false', 'previous forge branch stayed open');
-
-  const visibleChildren = await page.locator('#forge .map-node:not([data-hidden="true"])').count();
-  ok(visibleChildren > 5, `expected branch children to be revealed, saw ${visibleChildren} nodes`);
-
-  const before = await page.locator('#forge h3').first().textContent();
-  const child = page.locator('#forge .map-node[data-hidden="false"]').last();
-  await child.click();
-  await page.waitForTimeout(500);
-  const after = await page.locator('#forge h3').first().textContent();
-  ok(before !== after, 'selecting a forge node did not change the readout');
-
-  // Hidden children must not be reachable by keyboard.
-  const focusableHidden = await page.locator('#forge .map-node[data-hidden="true"][tabindex="0"]').count();
-  ok(focusableHidden === 0, `${focusableHidden} hidden nodes are still tab-focusable`);
-
-  // Approach: selecting a stage rewrites the readout.
-  await page.locator('#approach').scrollIntoViewIfNeeded();
+  // Services: single-open, and opening one closes the other.
+  await page.locator('#services').scrollIntoViewIfNeeded();
   await page.waitForTimeout(600);
-  const stages = page.locator('#approach .stage');
-  ok((await stages.count()) === 6, `expected 6 approach stages, got ${await stages.count()}`);
-  const aBefore = await page.locator('#approach-readout').textContent();
-  await stages.nth(4).click();
+  const svc = page.locator('#services button[aria-expanded]');
+  ok((await svc.count()) === 5, `expected 5 services, got ${await svc.count()}`);
+  ok((await svc.nth(0).getAttribute('aria-expanded')) === 'true', 'first service not open by default');
+  await svc.nth(3).click();
   await page.waitForTimeout(600);
-  const aAfter = await page.locator('#approach-readout').textContent();
-  ok(aBefore !== aAfter, 'approach readout did not change on stage select');
+  ok((await svc.nth(3).getAttribute('aria-expanded')) === 'true', 'service did not open');
+  ok((await svc.nth(0).getAttribute('aria-expanded')) === 'false', 'previous service stayed open');
 
-  // System: selecting a stage lights exactly the in and out edges.
-  await page.locator('#system').scrollIntoViewIfNeeded();
+  // FAQ: closed by default — this is what keeps the page near-wordless.
+  await page.locator('#faq').scrollIntoViewIfNeeded();
   await page.waitForTimeout(600);
-  const loopNodes = page.locator('#system .map-node');
-  ok((await loopNodes.count()) === 6, `expected 6 loop stages, got ${await loopNodes.count()}`);
-  await loopNodes.nth(3).click();
-  await page.waitForTimeout(500);
-  const liveEdges = await page.locator('#system path[data-live="true"]').count();
-  ok(liveEdges === 2, `expected 2 live loop edges, got ${liveEdges}`);
-
-  await ctx.close();
-}
-
-/* ---- diagrams must become usable trees below the radial breakpoint ---- */
-{
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
-  const page = await ctx.newPage();
-  await page.goto(TARGET, { waitUntil: 'networkidle' });
-  await page.locator('#forge').scrollIntoViewIfNeeded();
+  const faq = page.locator('#faq button[aria-expanded]');
+  ok((await faq.count()) === 5, `expected 5 faq rows, got ${await faq.count()}`);
+  const anyOpen = await page.locator('#faq button[aria-expanded="true"]').count();
+  ok(anyOpen === 0, 'faq rows should start closed');
+  await faq.nth(1).click();
   await page.waitForTimeout(600);
+  ok((await faq.nth(1).getAttribute('aria-expanded')) === 'true', 'faq row did not open');
 
-  // No absolutely-positioned radial nodes on mobile — it must be a list.
-  ok((await page.locator('#forge .map-node').count()) === 0, 'radial nodes rendered on mobile');
-
-  const mBranch = page.locator('#forge button[data-branch]');
-  ok((await mBranch.count()) === 5, 'mobile forge tree missing branches');
-  await mBranch.nth(1).click();
-  await page.waitForTimeout(700);
-  ok((await mBranch.nth(1).getAttribute('aria-expanded')) === 'true', 'mobile branch did not expand');
+  // Every image slot resolved — a broken plate would be silent otherwise.
+  const broken = await page.evaluate(() =>
+    [...document.querySelectorAll('img')].filter((i) => !i.complete || i.naturalWidth === 0).length,
+  );
+  ok(broken === 0, `${broken} images failed to load`);
 
   await ctx.close();
 }

@@ -16,12 +16,12 @@ export function Hero() {
       {/* Backdrop */}
       <div className="absolute inset-0 -z-10">
         <Frame
-          src={work.pieces[0]?.src}
-          alt={work.pieces[0]?.alt ?? 'Revigen Forge'}
+          src={work.art.hero}
+          alt="Revigen Forge"
           label="Hero still"
           className="h-full w-full border-0"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/30" />
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink to-transparent" />
       </div>
 

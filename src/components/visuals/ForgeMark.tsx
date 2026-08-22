@@ -3,7 +3,7 @@ import { brand } from '../../content/site';
 /** The logo, as live text so it stays crisp and flips with the surface. */
 export function Wordmark({ className = '' }: { className?: string }) {
   return (
-    <a href="#top" className={`wordmark inline-block ${className}`} aria-label={`${brand.name} — top`}>
+    <a href="#top" className={`wordmark -my-2 inline-block py-2 ${className}`} aria-label={`${brand.name} — top`}>
       {brand.name}
     </a>
   );

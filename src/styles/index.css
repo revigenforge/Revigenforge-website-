@@ -15,15 +15,16 @@
    body copy that survives. That contrast is deliberate — the mark is light
    and geometric, the voice is loud and narrow.
 
-   Ink / cream / blue alternate full-bleed, which is what gives the layout
-   its rhythm. Blue is a surface here, not an accent: whole sections are
-   blue, the way the reference uses orange.
+   Cream leads, ink answers, blue punctuates. The page alternates cream and
+   ink full-bleed; blue never owns a section. It appears in small, load-
+   bearing places only — pill arrows, live numbers, markers — which is what
+   keeps it feeling like a decision rather than a theme.
    ------------------------------------------------------------------ */
 @theme {
   --color-ink: #0a0a0a;
   --color-cream: #f4efe4;
-  --color-blue: #2e6bff;
-  --color-blue-deep: #1b4fd8;
+  --color-blue: #2447d6;
+  --color-blue-deep: #16309b;
 
   --font-display: 'Anton', 'Arial Narrow', sans-serif;
   --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;

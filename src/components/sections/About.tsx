@@ -9,10 +9,10 @@ import { Reveal } from '../ui/Reveal';
  */
 export function About() {
   return (
-    <section id="about" className="surface-blue section-y">
+    <section id="about" className="surface-cream section-y">
       <div className="shell">
         <Reveal y={10}>
-          <span className="label opacity-70">{about.label}</span>
+          <span className="label opacity-45">{about.label}</span>
         </Reveal>
 
         <Reveal delay={80} className="mt-8">

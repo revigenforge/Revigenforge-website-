@@ -66,8 +66,8 @@ export function Faq() {
 
           <Reveal className="lg:col-span-5" delay={140}>
             <Frame
-              src={work.pieces[2]?.src}
-              alt={work.pieces[2]?.alt ?? 'Studio work'}
+              src={work.art.stack}
+              alt="Revigen Forge"
               label="FAQ still"
               className="aspect-[4/5] rounded-2xl lg:sticky lg:top-28"
             />

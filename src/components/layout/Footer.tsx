@@ -8,7 +8,7 @@ import { Reveal } from '../ui/Reveal';
  */
 export function Footer() {
   return (
-    <footer className="surface-blue overflow-hidden pt-[var(--section-y)]">
+    <footer className="surface-ink overflow-hidden pt-[var(--section-y)]">
       <div className="shell">
         <Reveal y={10}>
           <p className="label opacity-70">{footer.prompt}</p>
@@ -17,7 +17,7 @@ export function Footer() {
         <Reveal delay={80} className="mt-4">
           <a
             href={`mailto:${contact.email}?subject=${encodeURIComponent(contact.emailSubject)}`}
-            className="display-lg break-all transition-opacity duration-300 hover:opacity-70"
+            className="display-lg -my-1 inline-block break-all py-1 transition-opacity duration-300 hover:opacity-70"
           >
             {contact.email}
           </a>
@@ -25,12 +25,12 @@ export function Footer() {
 
         <div className="mt-14 flex flex-wrap justify-between gap-10">
           <Reveal delay={140}>
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col">
               {nav.links.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="inline-block py-1 text-[0.9rem] opacity-75 transition-opacity hover:opacity-100"
+                    className="inline-block py-2.5 text-[0.9rem] opacity-75 transition-opacity hover:opacity-100"
                   >
                     {link.label}
                   </a>
@@ -41,14 +41,14 @@ export function Footer() {
 
           <Reveal delay={200} className="text-right">
             <p className="label opacity-60">Elsewhere</p>
-            <ul className="mt-3 flex flex-col gap-2">
+            <ul className="mt-1 flex flex-col">
               {contact.social.map((s) => (
                 <li key={s.href}>
                   <a
                     href={s.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-block py-1 text-[0.9rem] opacity-75 transition-opacity hover:opacity-100"
+                    className="inline-block py-2.5 text-[0.9rem] opacity-75 transition-opacity hover:opacity-100"
                   >
                     {s.label}
                   </a>
@@ -66,7 +66,7 @@ export function Footer() {
 
       <div className="shell flex flex-wrap items-center justify-between gap-3 border-t py-5 [border-color:var(--rule)]">
         <p className="label opacity-60">{footer.legal}</p>
-        <a href="#top" className="label opacity-60 transition-opacity hover:opacity-100">
+        <a href="#top" className="label -my-2.5 inline-block py-2.5 opacity-60 transition-opacity hover:opacity-100">
           Back to top
         </a>
       </div>

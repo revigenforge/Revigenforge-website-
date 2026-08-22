@@ -23,7 +23,7 @@ export function Contact() {
           <Pill href={contact.cta.href}>{contact.cta.label}</Pill>
           <a
             href={`mailto:${contact.email}?subject=${encodeURIComponent(contact.emailSubject)}`}
-            className="text-[0.95rem] underline underline-offset-4 opacity-60 transition-opacity hover:opacity-100"
+            className="inline-block py-2.5 text-[0.95rem] underline underline-offset-4 opacity-60 transition-opacity hover:opacity-100"
           >
             {contact.email}
           </a>
