@@ -30,6 +30,15 @@
      --color-blue; only blue *text on ink* uses this. */
   --color-blue-lift: #5a79f5;
 
+  /* Growth green. No single green clears AA on both surfaces — the same
+     problem the blue has — so there are two values of one hue: lifted for
+     ink (8.31:1), deep for cream (4.72:1, and white on it is 5.42:1 for
+     fills). Never hardcode either; use `growth`, which resolves per
+     surface. See the two-accent rule in CLAUDE.md — green is not a second
+     decoration, it has its own job. */
+  --color-green-lift: #2fbf71;
+  --color-green-deep: #0f7a3f;
+
   --font-display: 'Anton', 'Arial Narrow', sans-serif;
   --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
 
@@ -47,6 +56,7 @@
     --fg-2: color-mix(in srgb, var(--color-cream) 60%, var(--color-ink));
     --fg-3: color-mix(in srgb, var(--color-cream) 45%, var(--color-ink));
     --accent: var(--color-blue-lift);
+    --growth: var(--color-green-lift);
     --bg: var(--color-ink);
     --rule: rgb(244 239 228 / 0.18);
     color-scheme: dark;
@@ -144,6 +154,7 @@
   --fg-2: color-mix(in srgb, var(--color-cream) 60%, var(--color-ink));
   --fg-3: color-mix(in srgb, var(--color-cream) 45%, var(--color-ink));
   --accent: var(--color-blue-lift);
+  --growth: var(--color-green-lift);
   --bg: var(--color-ink);
   --rule: rgb(244 239 228 / 0.18);
   background: var(--bg);
@@ -155,6 +166,7 @@
   --fg-2: color-mix(in srgb, var(--color-ink) 66%, var(--color-cream));
   --fg-3: color-mix(in srgb, var(--color-ink) 52%, var(--color-cream));
   --accent: var(--color-blue);
+  --growth: var(--color-green-deep);
   --bg: var(--color-cream);
   --rule: rgb(10 10 10 / 0.16);
   background: var(--bg);
@@ -167,6 +179,7 @@
   --fg-2: color-mix(in srgb, var(--color-ink) 64%, #ffffff);
   --fg-3: color-mix(in srgb, var(--color-ink) 50%, #ffffff);
   --accent: var(--color-blue);
+  --growth: var(--color-green-deep);
   --bg: #ffffff;
   --rule: rgb(10 10 10 / 0.14);
   background: var(--bg);
@@ -178,6 +191,7 @@
   --fg-2: color-mix(in srgb, #ffffff 82%, var(--color-blue));
   --fg-3: color-mix(in srgb, #ffffff 62%, var(--color-blue));
   --accent: #ffffff;
+  --growth: #ffffff;
   --bg: var(--color-blue);
   --rule: rgb(255 255 255 / 0.28);
   background: var(--bg);
@@ -209,7 +223,12 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(3.25rem, 12vw, 11rem);
-  line-height: 0.86;
+  /* 0.86 collided: on a 360px phone this headline wraps to three lines and
+     the caps of each touched the line above — measured as merged ink bands
+     by scripts/overlap-check.mjs, not guessed. 0.90 is the threshold where
+     the bands separate at every width; 0.92 keeps a margin for copy longer
+     than today's. Do not go back under 0.90. */
+  line-height: 0.92;
   letter-spacing: -0.02em;
   text-transform: uppercase;
 }
@@ -218,7 +237,9 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(2.5rem, 7.5vw, 6rem);
-  line-height: 0.9;
+  /* Was exactly on the 0.90 collision threshold — fine for today's copy,
+     with zero margin. Same reasoning as display-xl. */
+  line-height: 0.94;
   letter-spacing: -0.015em;
   text-transform: uppercase;
 }
@@ -278,6 +299,13 @@
 /* Blue where blue survives: lifted on ink, brand blue on cream. */
 @utility accent {
   color: var(--accent);
+}
+
+/* Green marks the yield — measured growth and what the client receives.
+   Blue is the invitation (things you click, the brand); green is what
+   comes back. Two accents, one job each; neither is decoration. */
+@utility growth {
+  color: var(--growth);
 }
 
 /* ------------------------------------------------------------------

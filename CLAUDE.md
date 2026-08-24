@@ -13,15 +13,23 @@ Read this before changing anything. It loads automatically each session.
    alternatives.
 2. **All copy lives in `src/content/site.ts`.** Components read from it and
    never hardcode text. Change the site by changing that file.
-3. **One accent colour, never decorative.** Cream leads, ink answers, blue
-   punctuates. Blue never owns a section — it appears in small load-bearing
-   places only (pill arrows, live numbers, markers). Using blue to make
-   something look nicer breaks the system.
-   Note the two blues: `--color-blue` (#2447d6) is only legible on cream or as
-   a fill under white — it is **2.78:1 on ink and must never carry text
-   there**. `--color-blue-lift` (#5a79f5) is the same hue raised until it
-   clears AA on black. Do not hardcode either; use `accent`, which resolves
-   per surface.
+3. **Two accents, one job each, never decorative.** Cream leads, ink
+   answers; blue and green punctuate. Neither owns a section.
+   - **Blue = the invitation** — things you click and the brand itself: pill
+     arrows, the nav CTA, the "Most common" badge, the audience eyebrow.
+     Use via `accent`.
+   - **Green = the yield** — measured growth and what the client receives:
+     the Overdrive figures, the pricing includes-markers, the final Compound
+     step. Use via `growth`.
+   Adding a colour because something looks bare is what this rule exists to
+   stop. If a new mark does not clearly belong to one of those two jobs, it
+   should be `--fg`/`dim` instead.
+   **Every accent has two values, because no single one clears AA on both
+   surfaces.** `--color-blue` (#2447d6) is 2.78:1 on ink and must never carry
+   text there; `--color-blue-lift` (#5a79f5) is the lifted twin. Likewise
+   `--color-green-deep` (#0f7a3f) for cream and `--color-green-lift`
+   (#2fbf71) for ink. Never hardcode any of the four — `accent` and `growth`
+   resolve per surface.
 4. **Never dim text with `opacity-*`. Use the tone scale.** Three tones, set by
    the surface utility: `--fg` full, `dim` (`--fg-2`) safe at any size, `ghost`
    (`--fg-3`) for display type ≥24px only. The percentages are solved against
@@ -46,7 +54,19 @@ npm run preview              # :4173, needed by both checks
 npm run check:visual         # 1440 / 1024 / 834 / 390 → .qa-shots/
 npm run check:interaction    # accordions, drawer, tap targets, a11y, reduced motion
 npm run check:contrast       # WCAG AA on every visible text node
+npm run check:overlap        # text colliding with text, at six widths
 ```
+
+`check:overlap` decides line collisions from **pixels**, not font metrics,
+and that is deliberate: `measureText` on the DOM string counts the descender
+of a lowercase "p" that `text-transform: uppercase` never paints, and
+`actualBoundingBoxAscent` reports the tallest glyph in the whole string
+rather than what is on a given line. Both invent collisions that are not on
+screen — the first two versions of this script reported 51 and then 75
+phantom hits. It screenshots each multi-line heading and counts bands of
+rows containing ink: N lines that produce fewer than N bands are touching.
+Capture the element with padding, or the background estimate samples the
+text colour and inverts the whole measurement.
 
 `check:contrast` composites for real — it paints the background stack and the
 text colour onto a canvas and reads the pixel back. Do not "simplify" it to

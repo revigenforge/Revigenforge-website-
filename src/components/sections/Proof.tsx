@@ -25,7 +25,7 @@ export function Proof() {
             <ul className="mt-12 grid gap-8 border-y py-9 [border-color:var(--rule)] sm:grid-cols-3">
               {proof.metrics.map((m, i) => (
                 <Reveal as="li" key={m.label} delay={120 + i * 80}>
-                  <p className="display-md tnum accent">{m.value}</p>
+                  <p className="display-md tnum growth">{m.value}</p>
                   <p className="label dim mt-3">{m.label}</p>
                 </Reveal>
               ))}
