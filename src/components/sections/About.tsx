@@ -9,7 +9,7 @@ import { Reveal } from '../ui/Reveal';
  */
 export function About() {
   return (
-    <section id="about" className="surface-cream section-y">
+    <section id="about" className="surface-accent section-y">
       <div className="shell">
         <Reveal y={10}>
           <span className="label dim">{about.label}</span>

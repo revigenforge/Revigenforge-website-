@@ -13,14 +13,19 @@ Read this before changing anything. It loads automatically each session.
    alternatives.
 2. **All copy lives in `src/content/site.ts`.** Components read from it and
    never hardcode text. Change the site by changing that file.
-3. **One accent, and it is green.** Cream leads, ink answers, green
-   punctuates. Green never owns a section — it appears in small load-bearing
-   places only: the CTA, pill arrows, live figures, markers, the final
-   Compound step. Blue used to sit here; it came from an early reference and
+3. **One accent, and it is green.** Cream leads, ink answers, green does
+   the rest. Blue used to sit here; it came from an early reference and
    never meant anything for this brand, whereas green says growth, which is
    what the studio sells. Adding a *second* accent is what this rule exists
-   to stop — if a mark needs emphasis and is not one of the above, it should
-   be `--fg`/`dim`.
+   to stop — if a mark needs emphasis and is not accent-worthy, it should be
+   `--fg`/`dim`.
+   Green owns two full-bleed sections (About and Contact — the thesis and
+   the invitation) and otherwise appears as marks: the CTA, pill arrows,
+   live figures, markers, the final Compound step. An earlier version of
+   this rule said green never owns a section; the studio asked for more of
+   it, so the rule changed rather than being quietly broken. Keep it to
+   those two blocks — a third would make green the page rather than the
+   accent.
    **Three values of one hue**, because no single green clears AA
    everywhere. Never hardcode any of them; `accent` resolves text per
    surface and `--accent-fill` carries the solid:
@@ -29,6 +34,13 @@ Read this before changing anything. It loads automatically each session.
    - `--color-green-lift` (#2fbf71) — TEXT ON INK, 8.31:1.
    - `--color-green-deep` (#0f7a3f) — TEXT ON CREAM, 4.72:1. The fill green
      is 4.37:1 on cream and misses AA for small text, so these cannot merge.
+   - `--color-green-surface` (#116634) — the FULL-BLEED BLOCK. Deeper than
+     the fill on purpose: white on the fill green is only 5.02:1, so a
+     secondary tone there would need 92% white to stay legible and the tone
+     scale collapses. This gives white 7.06:1 and `--fg-2` 4.99:1. Small
+     marks want brightness; large areas want depth.
+   On `surface-accent`, `--accent-fill` is INK, not white — a white pill
+   arrow on a green section would put a white glyph on white.
    `scripts/make-art.mjs` bakes the accent into the generated plates — if
    the palette changes, re-run it or the artwork silently keeps the old
    colour.

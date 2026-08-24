@@ -43,6 +43,14 @@
   --color-green: #15803d;
   --color-green-lift: #2fbf71;
   --color-green-deep: #0f7a3f;
+  /* A FOURTH value, for green used as a full-bleed SURFACE rather than a
+     mark. The fill green is too light to be a background: white on it is
+     only 5.02:1, so a dimmed secondary tone would need 92% white to stay
+     legible — i.e. barely dimmer than full, and the tone scale collapses.
+     This one gives white 7.06:1 and a secondary tone at 4.99:1, so a green
+     section has the same three working tones every other surface has.
+     Small marks want brightness; large areas want depth. */
+  --color-green-surface: #116634;
 
   --font-display: 'Anton', 'Arial Narrow', sans-serif;
   --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
@@ -191,14 +199,17 @@
   color: var(--fg);
 }
 
+/* The green block. Ink cards and ink pill-arrows sit on it, which is why
+   --accent-fill is ink here rather than white: a white arrow circle on a
+   green section would carry a white glyph on white. */
 @utility surface-accent {
   --fg: #ffffff;
-  --fg-2: color-mix(in srgb, #ffffff 82%, var(--color-green));
-  --fg-3: color-mix(in srgb, #ffffff 62%, var(--color-green));
+  --fg-2: color-mix(in srgb, #ffffff 78%, var(--color-green-surface));
+  --fg-3: color-mix(in srgb, #ffffff 62%, var(--color-green-surface));
   --accent: #ffffff;
-  --accent-fill: #ffffff;
-  --bg: var(--color-green);
-  --rule: rgb(255 255 255 / 0.28);
+  --accent-fill: var(--color-ink);
+  --bg: var(--color-green-surface);
+  --rule: rgb(255 255 255 / 0.3);
   background: var(--bg);
   color: var(--fg);
 }

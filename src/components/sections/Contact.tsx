@@ -5,7 +5,7 @@ import { Reveal } from '../ui/Reveal';
 /** Closing statement, a marquee of capabilities, one CTA. */
 export function Contact() {
   return (
-    <section id="contact" className="surface-ink section-y overflow-hidden">
+    <section id="contact" className="surface-accent section-y overflow-hidden">
       <div className="shell text-center">
         <Reveal y={10}>
           <span className="label dim">{cta.label}</span>
