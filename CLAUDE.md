@@ -13,23 +13,25 @@ Read this before changing anything. It loads automatically each session.
    alternatives.
 2. **All copy lives in `src/content/site.ts`.** Components read from it and
    never hardcode text. Change the site by changing that file.
-3. **Two accents, one job each, never decorative.** Cream leads, ink
-   answers; blue and green punctuate. Neither owns a section.
-   - **Blue = the invitation** — things you click and the brand itself: pill
-     arrows, the nav CTA, the "Most common" badge, the audience eyebrow.
-     Use via `accent`.
-   - **Green = the yield** — measured growth and what the client receives:
-     the Overdrive figures, the pricing includes-markers, the final Compound
-     step. Use via `growth`.
-   Adding a colour because something looks bare is what this rule exists to
-   stop. If a new mark does not clearly belong to one of those two jobs, it
-   should be `--fg`/`dim` instead.
-   **Every accent has two values, because no single one clears AA on both
-   surfaces.** `--color-blue` (#2447d6) is 2.78:1 on ink and must never carry
-   text there; `--color-blue-lift` (#5a79f5) is the lifted twin. Likewise
-   `--color-green-deep` (#0f7a3f) for cream and `--color-green-lift`
-   (#2fbf71) for ink. Never hardcode any of the four — `accent` and `growth`
-   resolve per surface.
+3. **One accent, and it is green.** Cream leads, ink answers, green
+   punctuates. Green never owns a section — it appears in small load-bearing
+   places only: the CTA, pill arrows, live figures, markers, the final
+   Compound step. Blue used to sit here; it came from an early reference and
+   never meant anything for this brand, whereas green says growth, which is
+   what the studio sells. Adding a *second* accent is what this rule exists
+   to stop — if a mark needs emphasis and is not one of the above, it should
+   be `--fg`/`dim`.
+   **Three values of one hue**, because no single green clears AA
+   everywhere. Never hardcode any of them; `accent` resolves text per
+   surface and `--accent-fill` carries the solid:
+   - `--color-green` (#15803d) — FILL. White on it 5.02:1; 3.95:1 against
+     ink, so a button still separates from the dark nav capsule.
+   - `--color-green-lift` (#2fbf71) — TEXT ON INK, 8.31:1.
+   - `--color-green-deep` (#0f7a3f) — TEXT ON CREAM, 4.72:1. The fill green
+     is 4.37:1 on cream and misses AA for small text, so these cannot merge.
+   `scripts/make-art.mjs` bakes the accent into the generated plates — if
+   the palette changes, re-run it or the artwork silently keeps the old
+   colour.
 4. **Never dim text with `opacity-*`. Use the tone scale.** Three tones, set by
    the surface utility: `--fg` full, `dim` (`--fg-2`) safe at any size, `ghost`
    (`--fg-3`) for display type ≥24px only. The percentages are solved against

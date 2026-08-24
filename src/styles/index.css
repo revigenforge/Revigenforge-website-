@@ -15,27 +15,32 @@
    body copy that survives. That contrast is deliberate — the mark is light
    and geometric, the voice is loud and narrow.
 
-   Cream leads, ink answers, blue punctuates. The page alternates cream and
-   ink full-bleed; blue never owns a section. It appears in small, load-
-   bearing places only — pill arrows, live numbers, markers — which is what
-   keeps it feeling like a decision rather than a theme.
+   Cream leads, ink answers, green punctuates. The page alternates cream and
+   ink full-bleed; green never owns a section. It appears in small, load-
+   bearing places only — pill arrows, the CTA, live numbers, markers — which
+   is what keeps it feeling like a decision rather than a theme.
    ------------------------------------------------------------------ */
 @theme {
   --color-ink: #0a0a0a;
   --color-cream: #f4efe4;
-  --color-blue: #2447d6;
-  --color-blue-deep: #16309b;
-  /* The brand blue is 2.78:1 on ink — it cannot carry text there. This is
-     the same hue lifted until it clears AA on black (5.17:1). Fills stay
-     --color-blue; only blue *text on ink* uses this. */
-  --color-blue-lift: #5a79f5;
+  /* ONE accent, and it is green. Blue used to sit here; it arrived from an
+     early reference and never meant anything for this brand. Green does —
+     this is a growth studio, so the one colour that is not black or cream
+     says growth. There is nothing left to balance it against, which is the
+     point: a single accent cannot drift into decoration.
 
-  /* Growth green. No single green clears AA on both surfaces — the same
-     problem the blue has — so there are two values of one hue: lifted for
-     ink (8.31:1), deep for cream (4.72:1, and white on it is 5.42:1 for
-     fills). Never hardcode either; use `growth`, which resolves per
-     surface. See the two-accent rule in CLAUDE.md — green is not a second
-     decoration, it has its own job. */
+     Three values of one hue, because no single green clears AA everywhere:
+       --color-green       the FILL. White on it is 5.02:1, and it reads
+                           3.95:1 against ink, so a button still separates
+                           from the dark nav capsule (the old blue managed
+                           only 2.78:1 there).
+       --color-green-lift  TEXT ON INK — 8.31:1.
+       --color-green-deep  TEXT ON CREAM — 4.72:1. The fill green is 4.37:1
+                           on cream, which misses AA for small text, so the
+                           two cannot be merged.
+     Never hardcode any of them: `accent` resolves the right one per
+     surface, and `--accent-fill` carries the solid. */
+  --color-green: #15803d;
   --color-green-lift: #2fbf71;
   --color-green-deep: #0f7a3f;
 
@@ -55,8 +60,8 @@
     --fg: var(--color-cream);
     --fg-2: color-mix(in srgb, var(--color-cream) 60%, var(--color-ink));
     --fg-3: color-mix(in srgb, var(--color-cream) 45%, var(--color-ink));
-    --accent: var(--color-blue-lift);
-    --growth: var(--color-green-lift);
+    --accent: var(--color-green-lift);
+    --accent-fill: var(--color-green);
     --bg: var(--color-ink);
     --rule: rgb(244 239 228 / 0.18);
     color-scheme: dark;
@@ -89,12 +94,12 @@
   }
 
   ::selection {
-    background: var(--color-blue);
+    background: var(--color-green);
     color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-blue);
+    outline: 2px solid var(--color-green);
     outline-offset: 3px;
   }
 
@@ -139,7 +144,7 @@
 
    The percentages below are solved, not chosen. `scripts/contrast-check.mjs`
    rasterises the real composite; the minimum alpha to clear 4.5:1 is 0.49
-   on ink, 0.57 on cream and 0.73 on blue, and to clear 3:1 it is 0.37 /
+   on ink, 0.57 on cream and 0.73 on the accent, and to clear 3:1 it is 0.37 /
    0.45 / 0.52. Each tone below sits above its floor with headroom:
 
      --fg     full strength
@@ -153,8 +158,8 @@
   --fg: var(--color-cream);
   --fg-2: color-mix(in srgb, var(--color-cream) 60%, var(--color-ink));
   --fg-3: color-mix(in srgb, var(--color-cream) 45%, var(--color-ink));
-  --accent: var(--color-blue-lift);
-  --growth: var(--color-green-lift);
+  --accent: var(--color-green-lift);
+  --accent-fill: var(--color-green);
   --bg: var(--color-ink);
   --rule: rgb(244 239 228 / 0.18);
   background: var(--bg);
@@ -165,8 +170,8 @@
   --fg: var(--color-ink);
   --fg-2: color-mix(in srgb, var(--color-ink) 66%, var(--color-cream));
   --fg-3: color-mix(in srgb, var(--color-ink) 52%, var(--color-cream));
-  --accent: var(--color-blue);
-  --growth: var(--color-green-deep);
+  --accent: var(--color-green-deep);
+  --accent-fill: var(--color-green);
   --bg: var(--color-cream);
   --rule: rgb(10 10 10 / 0.16);
   background: var(--bg);
@@ -178,21 +183,21 @@
   --fg: var(--color-ink);
   --fg-2: color-mix(in srgb, var(--color-ink) 64%, #ffffff);
   --fg-3: color-mix(in srgb, var(--color-ink) 50%, #ffffff);
-  --accent: var(--color-blue);
-  --growth: var(--color-green-deep);
+  --accent: var(--color-green-deep);
+  --accent-fill: var(--color-green);
   --bg: #ffffff;
   --rule: rgb(10 10 10 / 0.14);
   background: var(--bg);
   color: var(--fg);
 }
 
-@utility surface-blue {
+@utility surface-accent {
   --fg: #ffffff;
-  --fg-2: color-mix(in srgb, #ffffff 82%, var(--color-blue));
-  --fg-3: color-mix(in srgb, #ffffff 62%, var(--color-blue));
+  --fg-2: color-mix(in srgb, #ffffff 82%, var(--color-green));
+  --fg-3: color-mix(in srgb, #ffffff 62%, var(--color-green));
   --accent: #ffffff;
-  --growth: #ffffff;
-  --bg: var(--color-blue);
+  --accent-fill: #ffffff;
+  --bg: var(--color-green);
   --rule: rgb(255 255 255 / 0.28);
   background: var(--bg);
   color: var(--fg);
@@ -296,16 +301,12 @@
   color: var(--fg-3);
 }
 
-/* Blue where blue survives: lifted on ink, brand blue on cream. */
+/* The accent, resolved for whichever surface it lands on: lifted green on
+   ink, deep green on cream. There used to be a second `growth` utility for
+   green while this one was blue; with one accent that split has nothing
+   left to express, so it is gone rather than kept as an alias. */
 @utility accent {
   color: var(--accent);
-}
-
-/* Green marks the yield — measured growth and what the client receives.
-   Blue is the invitation (things you click, the brand); green is what
-   comes back. Two accents, one job each; neither is decoration. */
-@utility growth {
-  color: var(--growth);
 }
 
 /* ------------------------------------------------------------------
@@ -332,7 +333,7 @@
   width: 1.85rem;
   height: 1.85rem;
   border-radius: 999px;
-  background: var(--color-blue);
+  background: var(--accent-fill);
   color: #fff;
   flex: none;
   transition: transform 0.5s var(--ease-out-expo);

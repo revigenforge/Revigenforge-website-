@@ -20,7 +20,7 @@ export function Process() {
         <ol className="mt-12 grid gap-px sm:grid-cols-2 lg:grid-cols-4">
           {process.steps.map((s, i) => {
             // The last move is Compound — the one that is about growth. Its
-            // index carries the growth colour so the sequence visibly ends
+            // index carries the accent so the sequence visibly ends
             // somewhere, rather than just stopping.
             const isLast = i === process.steps.length - 1;
             return (
@@ -30,7 +30,7 @@ export function Process() {
               delay={i * 80}
               className="border-t pt-6 [border-color:var(--rule)] lg:pr-8"
             >
-              <span className={`label tnum ${isLast ? 'growth' : 'dim'}`}>{s.n}</span>
+              <span className={`label tnum ${isLast ? 'accent' : 'dim'}`}>{s.n}</span>
               <h3 className="display-md mt-8">{s.title}</h3>
               <p className="body-copy dim mt-2">{s.line}</p>
             </Reveal>

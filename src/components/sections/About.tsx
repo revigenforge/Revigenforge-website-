@@ -3,7 +3,7 @@ import { Pill } from '../ui/Pill';
 import { Reveal } from '../ui/Reveal';
 
 /**
- * The blue block. Statement type where the opening clause is solid and the
+ * Statement type where the opening clause is solid and the
  * rest steps back, then three cards where the reference puts its stats —
  * ours carry the spine of the offer instead of numbers we do not have.
  */

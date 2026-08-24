@@ -52,7 +52,7 @@ export function Nav() {
             <a
               href={contact.cta.href}
               className="rounded-full px-4 py-2 text-[0.78rem] text-white transition-colors duration-300"
-              style={{ background: 'var(--color-blue)' }}
+              style={{ background: 'var(--color-green)' }}
             >
               {contact.cta.label}
             </a>

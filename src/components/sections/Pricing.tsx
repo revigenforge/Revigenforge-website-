@@ -42,7 +42,7 @@ export function Pricing() {
                   <li key={inc} className="flex gap-3 text-[0.92rem] leading-snug">
                     <span
                       aria-hidden="true"
-                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full [background:var(--growth)]"
+                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full [background:var(--accent-fill)]"
                     />
                     {inc}
                   </li>

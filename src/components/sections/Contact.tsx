@@ -38,7 +38,7 @@ export function Contact() {
                 {item}
                 <span
                   aria-hidden="true"
-                  className="h-1.5 w-1.5 rounded-full [background:var(--accent)]"
+                  className="h-1.5 w-1.5 rounded-full [background:var(--accent-fill)]"
                 />
               </span>
             ))}

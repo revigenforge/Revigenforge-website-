@@ -26,7 +26,7 @@ const POPPINS = font('@fontsource/poppins/files/poppins-latin-500-normal.woff2')
 
 const INK = '#0a0a0a';
 const CREAM = '#f4efe4';
-const BLUE = '#2447d6';
+const ACCENT = '#15803d'; // the one accent — keep in step with --color-green
 
 const BASE = `
 @font-face{font-family:A;src:url(data:font/woff2;base64,${ANTON}) format('woff2')}
@@ -72,7 +72,7 @@ const plates = [
           .map(
             (_, i) =>
               `<div class="w" style="font-size:170px;color:${
-                i === 3 ? BLUE : INK
+                i === 3 ? ACCENT : INK
               };opacity:${i === 3 ? 1 : 0.09};transform:translateX(${(i * 9) % 30}%)">Revigen Forge</div>`,
           )
           .join('')}
@@ -108,7 +108,7 @@ const plates = [
             }" stroke-width=".16"/>`;
           })
           .join('')}
-        <circle cx="50" cy="50" r="27" fill="none" stroke="${BLUE}" stroke-width=".4" stroke-dasharray="22 140" stroke-linecap="round" transform="rotate(-40 50 50)"/>
+        <circle cx="50" cy="50" r="27" fill="none" stroke="${ACCENT}" stroke-width=".4" stroke-dasharray="22 140" stroke-linecap="round" transform="rotate(-40 50 50)"/>
         <circle cx="50" cy="50" r=".7" fill="${CREAM}" fill-opacity=".8"/>
       </svg>
       <div class="grain" style="opacity:.4"></div>
@@ -119,7 +119,7 @@ const plates = [
     name: 'plate-mark',
     w: 1200,
     h: 1500,
-    html: `<body style="background:${BLUE}">
+    html: `<body style="background:${ACCENT}">
       <div class="w" style="position:absolute;left:-8%;top:50%;transform:translateY(-50%);font-size:1150px;color:${CREAM};opacity:.97;letter-spacing:-.06em">RF</div>
       <div style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(0,0,0,.28))"></div>
       <div class="grain" style="opacity:.45"></div>
@@ -135,7 +135,7 @@ const plates = [
         <div class="w" style="font-size:230px;color:${CREAM};line-height:.78">Revigen<br>Forge</div>
         <div style="font-family:P;font-size:22px;letter-spacing:.34em;text-transform:uppercase;color:${CREAM};opacity:.4;margin-top:46px">Creative growth studio</div>
       </div>
-      <div style="position:absolute;left:0;right:0;top:0;height:38%;background:linear-gradient(to bottom,rgba(36,71,214,.22),transparent)"></div>
+      <div style="position:absolute;left:0;right:0;top:0;height:38%;background:linear-gradient(to bottom,rgba(21,128,61,.22),transparent)"></div>
       <div class="grain" style="opacity:.42"></div>
     </body>`,
   },
